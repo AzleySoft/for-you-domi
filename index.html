@@ -743,6 +743,10 @@
 <body class="lock-scroll"> <!-- Start with scroll locked -->
   <!-- LARGE MUSIC CONTROL BUTTON -->
   <div class="music-control" id="musicToggle">🔊</div>
+  
+  <!-- ENLARGED VOLUME INDICATOR (fixed missing element) -->
+  <div class="volume-indicator" id="volumeIndicator">Volume: 50%</div>
+  
 
   
   <!-- Background Music - FORCED AUTOPLAY with preload -->
@@ -930,7 +934,7 @@
             }).catch(error => {
               console.log('Autoplay prevented:', error);
               musicToggle.textContent = '🔇';
-              volumeIndicator.textContent = 'I-click ang button!';
+              volumeIndicator.textContent = '10/10';
               volumeIndicator.style.opacity = '1';
               // Show instruction when music is off
               if (musicInstruction) {
