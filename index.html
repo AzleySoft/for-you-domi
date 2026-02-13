@@ -350,6 +350,53 @@
       to { stroke-dashoffset: 0; }
     }
 
+    /* NEW: Subtle idle animations after drawing completes */
+    .float-stickman-left {
+      animation: gentleFloat 6s ease-in-out infinite 9s; /* starts after all drawing + heart */
+      transform-origin: center;
+    }
+    .float-stickman-right {
+      animation: gentleFloat 7s ease-in-out infinite 9.5s;
+      transform-origin: center;
+    }
+    .bob-flower {
+      animation: bobFlower 4s ease-in-out infinite 10s;
+      transform-origin: top;
+    }
+    .wag-guitar {
+      animation: wagGuitar 5s ease-in-out infinite 10.5s;
+      transform-origin: 700px 200px; /* near neck */
+    }
+    .heart-pulse {
+      animation: heartPulse 2s ease-in-out infinite 10s;
+      transform-origin: center;
+      filter: drop-shadow(0 0 8px #ff4d88) drop-shadow(0 0 15px #ffb6c1);
+    }
+
+    @keyframes gentleFloat {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-8px); }
+    }
+    @keyframes bobFlower {
+      0%, 100% { transform: rotate(0deg); }
+      25% { transform: rotate(2deg) translateY(-2px); }
+      75% { transform: rotate(-2deg) translateY(2px); }
+    }
+    @keyframes wagGuitar {
+      0%, 100% { transform: rotate(0deg); }
+      33% { transform: rotate(-1deg) translateX(-1px); }
+      66% { transform: rotate(1deg) translateX(1px); }
+    }
+    @keyframes heartPulse {
+      0%, 100% { transform: scale(1); opacity: 0.9; }
+      50% { transform: scale(1.15); opacity: 1; }
+    }
+
+    /* Group wrappers for idle animation targets */
+    .left-stickman-group, .right-stickman-group, .flower-group, .guitar-group, .heart-group {
+      transition: all 0.3s ease;
+    }
+
     /* Section 2 - With abstract hearts and flowers animation */
     .section-2 {
       min-height: 100vh;
@@ -748,6 +795,10 @@
   <!-- ENLARGED VOLUME INDICATOR -->
   <div class="volume-indicator" id="volumeIndicator">11/10</div>
   
+  <!-- Music instruction badge (hidden initially, shown if autoplay blocked) -->
+  <div class="music-instruction" id="musicInstruction" style="display: none;">
+    <span>🔊</span> Click button for music
+  </div>
   
   <!-- Background Music - FORCED AUTOPLAY with preload -->
   <audio id="bgMusic" loop preload="auto" playsinline>
@@ -758,44 +809,56 @@
   </audio>
 
   <div class="container">
-    <!-- Section 1 - Drawing animation area with background image (EXTENDED ANIMATION) -->
+    <!-- Section 1 - Drawing animation area with background image (EXTENDED ANIMATION + IDLE MOVEMENTS) -->
     <div class="section-1" id="section1">
       <div class="scene">
         <div class="animation-area" id="drawingFocus">
           <svg viewBox="0 0 1000 600" preserveAspectRatio="xMidYMid meet">
-            <!-- Stickman left with flower -->
-            <circle class="draw d1" cx="250" cy="130" r="48"/>
-            <path class="draw d2" d="M250 178 L250 330"/>
-            <path class="draw d3" d="M250 330 L180 440"/>
-            <path class="draw d4" d="M250 330 L320 440"/>
-            <path class="draw d5" d="M250 210 L180 270"/>
-            <path class="draw d6" d="M250 210 L360 260"/>
-            <!-- Flower stems -->
-            <path class="flower-stem f1" d="M360 260 C 410 280, 460 295, 510 295"/>
-            <path class="flower-stem f2" d="M360 260 C 410 240, 460 235, 510 235"/>
-            <path class="flower-stem f3" d="M360 260 C 410 215, 460 205, 510 205"/>
-            <!-- Flower buds -->
-            <path class="flower-bud f4" d="M510 295 L535 315 L510 335 L485 315 Z"/>
-            <path class="flower-bud f5" d="M510 235 L535 255 L510 275 L485 255 Z"/>
-            <path class="flower-bud f6" d="M510 205 L535 225 L510 245 L485 225 Z"/>
-            <path class="draw d7" d="M410 245 C 425 230, 455 240, 440 260 C 425 278, 395 260, 410 245 Z"/>
+            <!-- LEFT STICKMAN GROUP (with flower) - will get idle float animation via class on group -->
+            <g class="left-stickman-group float-stickman-left">
+              <circle class="draw d1" cx="250" cy="130" r="48"/>
+              <path class="draw d2" d="M250 178 L250 330"/>
+              <path class="draw d3" d="M250 330 L180 440"/>
+              <path class="draw d4" d="M250 330 L320 440"/>
+              <path class="draw d5" d="M250 210 L180 270"/>
+              <path class="draw d6" d="M250 210 L360 260"/>
+            </g>
+            
+            <!-- Flower stems & buds group - separate for bobbing -->
+            <g class="flower-group bob-flower">
+              <path class="flower-stem f1" d="M360 260 C 410 280, 460 295, 510 295"/>
+              <path class="flower-stem f2" d="M360 260 C 410 240, 460 235, 510 235"/>
+              <path class="flower-stem f3" d="M360 260 C 410 215, 460 205, 510 205"/>
+              <path class="flower-bud f4" d="M510 295 L535 315 L510 335 L485 315 Z"/>
+              <path class="flower-bud f5" d="M510 235 L535 255 L510 275 L485 255 Z"/>
+              <path class="flower-bud f6" d="M510 205 L535 225 L510 245 L485 225 Z"/>
+              <path class="draw d7" d="M410 245 C 425 230, 455 240, 440 260 C 425 278, 395 260, 410 245 Z"/>
+            </g>
 
-            <!-- Stickwoman right with guitar -->
-            <circle class="draw d8" cx="700" cy="130" r="46"/>
-            <path class="draw d9" d="M700 176 L700 340"/>
-            <path class="draw d10" d="M700 340 L660 450 L700 435 L740 450 L700 340"/>
-            <path class="draw d11" d="M700 225 L635 290"/>
-            <path class="draw d12" d="M700 225 L765 290"/>
-            <!-- Guitar -->
-            <ellipse class="guitar-body g1" cx="750" cy="330" rx="60" ry="80" transform="rotate(-10 750 330)"/>
-            <path class="guitar-neck g2" d="M685 270 L635 170 L610 150"/>
-            <path class="guitar-detail g3" d="M610 150 L602 130 L618 128 L628 142 Z"/>
-            <ellipse class="guitar-detail g4" cx="755" cy="320" rx="18" ry="26" transform="rotate(-10 755 320)"/>
-            <line x1="682" y1="271" x2="720" y2="340" class="guitar-detail g5" style="stroke:#cfa668; stroke-width:3.5"/>
-            <line x1="672" y1="256" x2="710" y2="325" class="guitar-detail g5" style="stroke:#cfa668; stroke-width:3.5"/>
-            <line x1="662" y1="241" x2="700" y2="310" class="guitar-detail g5" style="stroke:#cfa668; stroke-width:3.5"/>
-            <!-- Heart - Delayed start to appear at the end -->
-            <path class="draw" d="M450 200 Q480 160 510 200 Q480 240 450 200" style="stroke:#ff7aa8; stroke-width:6; fill:none; stroke-dasharray:400; stroke-dashoffset:400;"/>
+            <!-- RIGHT STICKMAN GROUP (with guitar) - separate group for float -->
+            <g class="right-stickman-group float-stickman-right">
+              <circle class="draw d8" cx="700" cy="130" r="46"/>
+              <path class="draw d9" d="M700 176 L700 340"/>
+              <path class="draw d10" d="M700 340 L660 450 L700 435 L740 450 L700 340"/>
+              <path class="draw d11" d="M700 225 L635 290"/>
+              <path class="draw d12" d="M700 225 L765 290"/>
+            </g>
+            
+            <!-- Guitar group - separate for wagging -->
+            <g class="guitar-group wag-guitar">
+              <ellipse class="guitar-body g1" cx="750" cy="330" rx="60" ry="80" transform="rotate(-10 750 330)"/>
+              <path class="guitar-neck g2" d="M685 270 L635 170 L610 150"/>
+              <path class="guitar-detail g3" d="M610 150 L602 130 L618 128 L628 142 Z"/>
+              <ellipse class="guitar-detail g4" cx="755" cy="320" rx="18" ry="26" transform="rotate(-10 755 320)"/>
+              <line x1="682" y1="271" x2="720" y2="340" class="guitar-detail g5" style="stroke:#cfa668; stroke-width:3.5"/>
+              <line x1="672" y1="256" x2="710" y2="325" class="guitar-detail g5" style="stroke:#cfa668; stroke-width:3.5"/>
+              <line x1="662" y1="241" x2="700" y2="310" class="guitar-detail g5" style="stroke:#cfa668; stroke-width:3.5"/>
+            </g>
+            
+            <!-- Heart - with pulse animation -->
+            <g class="heart-group heart-pulse">
+              <path class="draw" d="M450 200 Q480 160 510 200 Q480 240 450 200" style="stroke:#ff7aa8; stroke-width:6; fill:none; stroke-dasharray:400; stroke-dashoffset:400;"/>
+            </g>
           </svg>
         </div>
       </div>
@@ -846,43 +909,43 @@
               <div class="open-text">Open</div>
             </div>
             
-<!-- Open Envelope Content (The Love Letter) -->
-<div class="envelope-open-content">
-  <div class="love-letter">
-    <div class="letter-date">💌 For you, Domi</div>
-    <div class="letter-greeting">Hi Domi,</div>
-    <div class="letter-body">
-      <p>Tbh, ilang beses na kitang kinausap sa isip ko —</p>
-      <p>kaso di ko matuloy sa totoong buhay HAHAHA 😅</p>
-      <p>Ang hirap pala mag-first move kapag sanay kang</p>
-      <p>nasa shell lang.</p>
-      <br>
-      <p>Pero today, sabi ko sa sarili ko:</p>
-      <p>"Sige na… gawin mo na."</p>
-      <br>
-      <p>So ayun — gumawa ako ng maliit na website</p>
-      <p>just for you.</p>
-      <p>Hindi para ma-pressure ka,</p>
-      <p>kundi para lang sabihin na kahit papano,</p>
-      <p>may nag-aadmire sa'yo from afar.</p>
-      <p>Yung tipong kahit di mo alam,</p>
-      <p>someone out there thinks you're worth</p>
-      <p>creating something for. 🙂</p>
-      <br>
-      <p>Hindi ko alam kung taken ka na, busy,</p>
-      <p>or hindi lang ready — and that's totally okay.</p>
-      <p>Pero kung sakali man na…</p>
-      <p>…well, malay natin diba? 😉</p>
-      <br>
-      <p>Good luck sa exam at PASUC nyo!</p>
-      <p>Kaya mo 'yan, Domi. 🌸</p>
-    </div>
-    <div class="letter-signature">
-      — <br>
-      <span>Juben Azley</span>
-    </div>
-  </div>
-</div>
+            <!-- Open Envelope Content (The Love Letter) -->
+            <div class="envelope-open-content">
+              <div class="love-letter">
+                <div class="letter-date">💌 For you, Domi</div>
+                <div class="letter-greeting">Hi Domi,</div>
+                <div class="letter-body">
+                  <p>Tbh, ilang beses na kitang kinausap sa isip ko —</p>
+                  <p>kaso di ko matuloy sa totoong buhay HAHAHA 😅</p>
+                  <p>Ang hirap pala mag-first move kapag sanay kang</p>
+                  <p>nasa shell lang.</p>
+                  <br>
+                  <p>Pero today, sabi ko sa sarili ko:</p>
+                  <p>"Sige na… gawin mo na."</p>
+                  <br>
+                  <p>So ayun — gumawa ako ng maliit na website</p>
+                  <p>just for you.</p>
+                  <p>Hindi para ma-pressure ka,</p>
+                  <p>kundi para lang sabihin na kahit papano,</p>
+                  <p>may nag-aadmire sa'yo from afar.</p>
+                  <p>Yung tipong kahit di mo alam,</p>
+                  <p>someone out there thinks you're worth</p>
+                  <p>creating something for. 🙂</p>
+                  <br>
+                  <p>Hindi ko alam kung taken ka na, busy,</p>
+                  <p>or hindi lang ready — and that's totally okay.</p>
+                  <p>Pero kung sakali man na…</p>
+                  <p>…well, malay natin diba? 😉</p>
+                  <br>
+                  <p>Good luck sa exam at PASUC nyo!</p>
+                  <p>Kaya mo 'yan, Domi. 🌸</p>
+                </div>
+                <div class="letter-signature">
+                  — <br>
+                  <span>Juben Azley</span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <div class="signature">❤️ ✦ 🌸 ✦ ❤️</div>
@@ -1039,7 +1102,7 @@
         // Calculate when all animations finish: 
         // Last element (heart) starts at 5s delay + 4s draw time = 9s total
         // Adding 1s buffer for full appreciation = 10 seconds
-        const animationDuration = 8000; // 10 seconds (extended from 5s)
+        const animationDuration = 8000; // 8 seconds (heart finishes at 9s but we add buffer later, set to 9.5)
         
         setTimeout(() => {
           // UNLOCK SECTION 2
@@ -1074,7 +1137,7 @@
               section2.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
           }
-        }, animationDuration);
+        }, 9500); // 9.5 seconds to ensure heart is fully drawn
         
         // Interactive envelope click
         if (envelope) {
