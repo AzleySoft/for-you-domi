@@ -32,7 +32,7 @@
       min-height: 100vh;
     }
 
-    /* Sparkles overlay */
+    /* Sparkles overlay - background animation */
     body::before {
       content: '';
       position: fixed;
@@ -55,7 +55,7 @@
       to { transform: translateY(-15px) translateX(8px); }
     }
 
-    /* LARGE MUSIC CONTROL BUTTON - Made much bigger and more noticeable */
+    /* LARGE MUSIC CONTROL BUTTON */
     .music-control {
       position: fixed;
       bottom: 30px;
@@ -95,7 +95,7 @@
       }
     }
 
-    /* ENLARGED VOLUME INDICATOR - Much bigger and more prominent */
+    /* ENLARGED VOLUME INDICATOR */
     .volume-indicator {
       position: fixed;
       bottom: 120px;
@@ -127,7 +127,7 @@
       opacity: 1;
     }
 
-    /* Music instruction badge - NEW: Shows when music is off */
+    /* Music instruction badge */
     .music-instruction {
       position: fixed;
       bottom: 120px;
@@ -188,7 +188,7 @@
       }
     }
 
-    /* Main container - flex column to stack sections */
+    /* Main container */
     .container {
       display: flex;
       flex-direction: column;
@@ -197,7 +197,7 @@
       z-index: 2;
     }
 
-    /* Section 1 - Full viewport height, centered content with background image */
+    /* Section 1 */
     .section-1 {
       min-height: 100vh;
       width: 100%;
@@ -211,9 +211,81 @@
       background-position: center;
       background-repeat: no-repeat;
       background-attachment: fixed;
+      overflow: hidden;
     }
 
-    /* Fade overlay for section 1 background - makes figures visible */
+    /* Floating Hearts Background Animation */
+    .floating-hearts-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    .floating-heart {
+      position: absolute;
+      color: rgba(255, 122, 168, 0.3);
+      font-size: 2rem;
+      filter: drop-shadow(0 0 15px rgba(255, 122, 168, 0.5));
+      animation: floatHeart 8s ease-in-out infinite;
+      opacity: 0;
+      z-index: 2;
+    }
+
+    .floating-heart:nth-child(1) { top: 15%; left: 10%; animation-delay: 1s; font-size: 2.5rem; }
+    .floating-heart:nth-child(2) { top: 70%; left: 20%; animation-delay: 3s; font-size: 2rem; }
+    .floating-heart:nth-child(3) { top: 30%; right: 15%; animation-delay: 2s; font-size: 3rem; }
+    .floating-heart:nth-child(4) { bottom: 20%; right: 25%; animation-delay: 4s; font-size: 2.2rem; }
+    .floating-heart:nth-child(5) { top: 50%; left: 40%; animation-delay: 2.5s; font-size: 2.8rem; }
+    .floating-heart:nth-child(6) { bottom: 40%; left: 60%; animation-delay: 5s; font-size: 2.4rem; }
+    .floating-heart:nth-child(7) { top: 80%; right: 40%; animation-delay: 3.5s; font-size: 2.1rem; }
+    .floating-heart:nth-child(8) { top: 20%; right: 60%; animation-delay: 4.5s; font-size: 2.6rem; }
+    .floating-heart:nth-child(9) { bottom: 60%; left: 80%; animation-delay: 1.5s; font-size: 2.3rem; }
+    .floating-heart:nth-child(10) { top: 45%; right: 70%; animation-delay: 5.5s; font-size: 2.7rem; }
+
+    @keyframes floatHeart {
+      0% { transform: translateY(100vh) rotate(0deg) scale(0.5); opacity: 0; }
+      10% { opacity: 0.5; }
+      50% { opacity: 0.8; }
+      90% { opacity: 0.5; }
+      100% { transform: translateY(-100px) rotate(360deg) scale(1.2); opacity: 0; }
+    }
+
+    /* Sparkle particles */
+    .sparkle-particle {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: white;
+      border-radius: 50%;
+      filter: blur(1px);
+      animation: sparkle 4s ease-in-out infinite;
+      opacity: 0;
+      z-index: 2;
+    }
+
+    .sparkle-particle:nth-child(11) { top: 25%; left: 15%; animation-delay: 0.5s; }
+    .sparkle-particle:nth-child(12) { top: 55%; left: 35%; animation-delay: 1.2s; }
+    .sparkle-particle:nth-child(13) { top: 75%; right: 25%; animation-delay: 2.1s; }
+    .sparkle-particle:nth-child(14) { top: 40%; right: 45%; animation-delay: 3.3s; }
+    .sparkle-particle:nth-child(15) { top: 85%; left: 55%; animation-delay: 0.8s; }
+    .sparkle-particle:nth-child(16) { top: 15%; right: 35%; animation-delay: 2.7s; }
+    .sparkle-particle:nth-child(17) { top: 65%; left: 75%; animation-delay: 4.2s; }
+    .sparkle-particle:nth-child(18) { top: 35%; right: 65%; animation-delay: 1.9s; }
+    .sparkle-particle:nth-child(19) { top: 95%; left: 25%; animation-delay: 3.8s; }
+    .sparkle-particle:nth-child(20) { top: 5%; right: 85%; animation-delay: 2.4s; }
+
+    @keyframes sparkle {
+      0%, 100% { transform: scale(0); opacity: 0; }
+      25% { transform: scale(1.5); opacity: 0.8; box-shadow: 0 0 15px #fff; }
+      50% { transform: scale(1); opacity: 0.4; }
+      75% { transform: scale(0.8); opacity: 0.2; }
+    }
+
+    /* Fade overlay for section 1 background */
     .section-1::before {
       content: '';
       position: absolute;
@@ -223,11 +295,11 @@
       bottom: 0;
       background: rgba(0, 0, 0, 0.3);
       backdrop-filter: brightness(0.8) blur(2px);
-      z-index: 1;
+      z-index: 3;
       pointer-events: none;
     }
 
-    /* Gradient overlay for better visibility */
+    /* Gradient overlay */
     .section-1::after {
       content: '';
       position: absolute;
@@ -236,7 +308,7 @@
       right: 0;
       bottom: 0;
       background: linear-gradient(145deg, rgba(10,15,34,0.4) 0%, rgba(31,43,92,0.3) 100%);
-      z-index: 2;
+      z-index: 4;
       pointer-events: none;
     }
 
@@ -247,7 +319,7 @@
       flex-direction: column;
       gap: 20px;
       position: relative;
-      z-index: 3;
+      z-index: 5;
     }
 
     .animation-area {
@@ -267,7 +339,7 @@
       filter: drop-shadow(0 15px 30px rgba(0,0,0,0.6));
     }
 
-    /* Drawing styles - EXTENDED ANIMATION DURATIONS */
+    /* Drawing styles */
     .draw {
       fill: none;
       stroke: rgba(255, 255, 255, 0.98);
@@ -276,7 +348,7 @@
       stroke-linejoin: round;
       stroke-dasharray: 1400;
       stroke-dashoffset: 1400;
-      animation: drawStroke 5s ease forwards; /* Increased from 3s to 5s */
+      animation: drawStroke 5s ease forwards;
       filter: drop-shadow(0 0 5px rgba(0,0,0,0.5));
     }
     .flower-stem {
@@ -287,7 +359,7 @@
       stroke-linejoin: round;
       stroke-dasharray: 900;
       stroke-dashoffset: 900;
-      animation: drawStroke 4.5s ease forwards; /* Increased from 2.2s to 4.5s */
+      animation: drawStroke 4.5s ease forwards;
       filter: drop-shadow(0 0 5px rgba(0,0,0,0.5));
     }
     .flower-bud {
@@ -298,7 +370,7 @@
       stroke-linejoin: round;
       stroke-dasharray: 500;
       stroke-dashoffset: 500;
-      animation: drawStroke 4s ease forwards; /* Increased from 1.6s to 4s */
+      animation: drawStroke 4s ease forwards;
       filter: drop-shadow(0 0 5px rgba(0,0,0,0.5));
     }
     .guitar-body, .guitar-neck, .guitar-detail {
@@ -309,19 +381,50 @@
       stroke-linejoin: round;
       stroke-dasharray: 900;
       stroke-dashoffset: 900;
-      animation: drawStroke 5s ease forwards; /* Increased from 2.4s to 5s */
+      animation: drawStroke 5s ease forwards;
       filter: drop-shadow(0 0 5px rgba(0,0,0,0.5));
     }
     
-    /* Heart with extra glow - EXTENDED DELAY TO MATCH LONGER SEQUENCE */
+    /* Happy Valentine's Day Text */
+    .valentine-text {
+      font-family: 'Brush Script MT', cursive, sans-serif;
+      font-size: 48px;
+      font-weight: bold;
+      fill: #ff7aa8;
+      stroke: white;
+      stroke-width: 2;
+      paint-order: stroke fill;
+      filter: drop-shadow(0 0 10px #ff4d88) drop-shadow(0 0 20px rgba(255,255,255,0.8));
+      opacity: 0;
+      animation: fadeInText 2s ease forwards 4s;
+    }
+
+    .valentine-subtext {
+      font-family: 'Courier New', monospace;
+      font-size: 24px;
+      fill: #fff0f5;
+      stroke: #ff7aa8;
+      stroke-width: 1;
+      paint-order: stroke fill;
+      filter: drop-shadow(0 0 8px rgba(255,255,255,0.5));
+      opacity: 0;
+      animation: fadeInText 2s ease forwards 6s;
+    }
+
+    @keyframes fadeInText {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Heart with extra glow */
     .draw[style*="#ff7aa8"] {
       stroke: #ffb6c1;
       stroke-width: 8;
       filter: drop-shadow(0 0 8px #ff4d88) drop-shadow(0 0 5px rgba(0,0,0,0.5));
-      animation: drawStroke 4s ease forwards 5s; /* Heart starts after 5s and draws over 4s */
+      animation: drawStroke 4s ease forwards 5s;
     }
 
-    /* delays - All delays increased to spread out the longer animation */
+    /* delays */
     .d1 { animation-delay: 0.2s; }
     .d2 { animation-delay: 0.3s; }
     .d3 { animation-delay: 0.4s; }
@@ -337,7 +440,7 @@
     .f1 { animation-delay: 2.0s; }
     .f2 { animation-delay: 2.2s; }
     .f3 { animation-delay: 2.4s; }
-    .f4 { animation-delay: 3.2s; }  /* Flower buds start later */
+    .f4 { animation-delay: 3.2s; }
     .f5 { animation-delay: 3.4s; }
     .f6 { animation-delay: 3.6s; }
     .g1 { animation-delay: 2.8s; }
@@ -350,9 +453,9 @@
       to { stroke-dashoffset: 0; }
     }
 
-    /* NEW: Subtle idle animations after drawing completes */
+    /* Idle animations */
     .float-stickman-left {
-      animation: gentleFloat 6s ease-in-out infinite 9s; /* starts after all drawing + heart */
+      animation: gentleFloat 6s ease-in-out infinite 9s;
       transform-origin: center;
     }
     .float-stickman-right {
@@ -365,12 +468,15 @@
     }
     .wag-guitar {
       animation: wagGuitar 5s ease-in-out infinite 10.5s;
-      transform-origin: 700px 200px; /* near neck */
+      transform-origin: 700px 200px;
     }
     .heart-pulse {
       animation: heartPulse 2s ease-in-out infinite 10s;
       transform-origin: center;
       filter: drop-shadow(0 0 8px #ff4d88) drop-shadow(0 0 15px #ffb6c1);
+    }
+    .text-glow {
+      animation: textGlow 3s ease-in-out infinite 9s;
     }
 
     @keyframes gentleFloat {
@@ -391,13 +497,17 @@
       0%, 100% { transform: scale(1); opacity: 0.9; }
       50% { transform: scale(1.15); opacity: 1; }
     }
+    @keyframes textGlow {
+      0%, 100% { filter: drop-shadow(0 0 10px #ff4d88) drop-shadow(0 0 20px rgba(255,255,255,0.5)); }
+      50% { filter: drop-shadow(0 0 20px #ff7aa8) drop-shadow(0 0 30px rgba(255,255,255,0.8)); }
+    }
 
-    /* Group wrappers for idle animation targets */
+    /* Group wrappers */
     .left-stickman-group, .right-stickman-group, .flower-group, .guitar-group, .heart-group {
       transition: all 0.3s ease;
     }
 
-    /* Section 2 - With abstract hearts and flowers animation */
+    /* Section 2 */
     .section-2 {
       min-height: 100vh;
       width: 100%;
@@ -410,7 +520,7 @@
       overflow: hidden;
     }
 
-    /* Abstract hearts and flowers animation container */
+    /* Abstract shapes for section 2 */
     .abstract-shapes {
       position: absolute;
       top: 0;
@@ -421,7 +531,6 @@
       z-index: 1;
     }
 
-    /* Floating hearts */
     .heart-shape {
       position: absolute;
       color: rgba(255, 122, 168, 0.15);
@@ -440,7 +549,6 @@
     .heart-shape:nth-child(7) { top: 15%; right: 25%; animation-delay: 6s; font-size: 4.2rem; }
     .heart-shape:nth-child(8) { bottom: 10%; left: 60%; animation-delay: 7s; font-size: 3.2rem; }
 
-    /* Floating flowers */
     .flower-shape {
       position: absolute;
       color: rgba(255, 200, 220, 0.15);
@@ -459,7 +567,6 @@
     .flower-shape:nth-child(15) { top: 40%; left: 80%; animation-delay: 6.5s; font-size: 4rem; }
     .flower-shape:nth-child(16) { bottom: 70%; right: 60%; animation-delay: 7.5s; font-size: 3.6rem; }
 
-    /* Additional abstract circles */
     .circle-shape {
       position: absolute;
       border-radius: 50%;
@@ -474,7 +581,6 @@
     .circle-shape:nth-child(19) { top: 40%; left: 20%; width: 180px; height: 180px; animation-delay: 2s; }
     .circle-shape:nth-child(20) { bottom: 30%; right: 15%; width: 220px; height: 220px; animation-delay: 3s; }
 
-    /* Animation keyframes */
     @keyframes float {
       0%, 100% { transform: translateY(0) rotate(0deg) scale(1); }
       25% { transform: translateY(-20px) rotate(5deg) scale(1.1); }
@@ -493,7 +599,7 @@
       50% { transform: scale(1.3); opacity: 0.1; }
     }
 
-    /* Lock overlay - covers section 2 while locked (no text) */
+    /* Lock overlay */
     .section-2.locked::before {
       content: '';
       position: absolute;
@@ -507,7 +613,7 @@
       pointer-events: none;
     }
 
-    /* MESSAGE SECTION - Love Letter Style */
+    /* Message section */
     .message {
       text-align: center;
       padding: 20px;
@@ -579,7 +685,7 @@
       50% { transform: translateX(-50%) scale(1.2); }
     }
 
-    /* Closed Envelope Content (Preview) */
+    /* Closed Envelope Content */
     .envelope-closed-content {
       display: flex;
       flex-direction: column;
@@ -613,14 +719,13 @@
       50% { transform: translateY(-5px); }
     }
 
-    /* Open Envelope Content (The Letter) */
+    /* Open Envelope Content */
     .envelope-open-content {
       display: none;
       opacity: 0;
       transition: all 0.5s ease;
     }
 
-    /* When envelope is opened */
     .envelope.opened .envelope-closed-content {
       display: none;
     }
@@ -718,7 +823,6 @@
       margin-top: 5px;
     }
 
-    /* Picture placeholder (smaller in envelope) */
     .picture-placeholder-small {
       width: 60px;
       height: 60px;
@@ -730,7 +834,6 @@
       box-shadow: 0 5px 10px rgba(0,0,0,0.2);
     }
 
-    /* Interactive hint */
     .click-hint {
       margin-top: 15px;
       color: rgba(255,255,255,0.8);
@@ -749,10 +852,6 @@
       font-size: 0.8rem;
       margin-top: 25px;
       letter-spacing: 3px;
-    }
-
-    span.flower {
-      margin-top: 86px;
     }
 
     /* Mobile adjustments */
@@ -780,41 +879,67 @@
       .letter-greeting {
         font-size: 1.5rem;
       }
+      
+      .valentine-text {
+        font-size: 32px;
+      }
+      
+      .valentine-subtext {
+        font-size: 18px;
+      }
     }
 
-    /* Optional: fallback background if image doesn't load */
     .section-1 {
       background-color: #1a1f35;
     }
   </style>
 </head>
-<body class="lock-scroll"> <!-- Start with scroll locked -->
-  <!-- LARGE MUSIC CONTROL BUTTON -->
+<body class="lock-scroll">
+  <!-- Music Control -->
   <div class="music-control" id="musicToggle">🔊</div>
-  
-  <!-- ENLARGED VOLUME INDICATOR -->
   <div class="volume-indicator" id="volumeIndicator">11/10</div>
-  
-  <!-- Music instruction badge (hidden initially, shown if autoplay blocked) -->
   <div class="music-instruction" id="musicInstruction" style="display: none;">
     <span>🔊</span> Click button for music
   </div>
   
-  <!-- Background Music - FORCED AUTOPLAY with preload -->
   <audio id="bgMusic" loop preload="auto" playsinline>
     <source src="background-music.mp3" type="audio/mpeg">
-    <!-- Fallback for browsers that don't support MP3 -->
     <source src="background-music.ogg" type="audio/ogg">
-    Your browser does not support the audio element.
   </audio>
 
   <div class="container">
-    <!-- Section 1 - Drawing animation area with background image (EXTENDED ANIMATION + IDLE MOVEMENTS) -->
+    <!-- Section 1 - Enhanced with background animations and Valentine's text -->
     <div class="section-1" id="section1">
+      <!-- Floating Hearts Background Animation -->
+      <div class="floating-hearts-bg">
+        <div class="floating-heart">❤️</div>
+        <div class="floating-heart">❤️</div>
+        <div class="floating-heart">❤️</div>
+        <div class="floating-heart">❤️</div>
+        <div class="floating-heart">❤️</div>
+        <div class="floating-heart">❤️</div>
+        <div class="floating-heart">❤️</div>
+        <div class="floating-heart">❤️</div>
+        <div class="floating-heart">❤️</div>
+        <div class="floating-heart">❤️</div>
+        
+        <!-- Sparkle particles -->
+        <div class="sparkle-particle"></div>
+        <div class="sparkle-particle"></div>
+        <div class="sparkle-particle"></div>
+        <div class="sparkle-particle"></div>
+        <div class="sparkle-particle"></div>
+        <div class="sparkle-particle"></div>
+        <div class="sparkle-particle"></div>
+        <div class="sparkle-particle"></div>
+        <div class="sparkle-particle"></div>
+        <div class="sparkle-particle"></div>
+      </div>
+      
       <div class="scene">
         <div class="animation-area" id="drawingFocus">
           <svg viewBox="0 0 1000 600" preserveAspectRatio="xMidYMid meet">
-            <!-- LEFT STICKMAN GROUP (with flower) - will get idle float animation via class on group -->
+            <!-- Left Stickman Group -->
             <g class="left-stickman-group float-stickman-left">
               <circle class="draw d1" cx="250" cy="130" r="48"/>
               <path class="draw d2" d="M250 178 L250 330"/>
@@ -824,7 +949,7 @@
               <path class="draw d6" d="M250 210 L360 260"/>
             </g>
             
-            <!-- Flower stems & buds group - separate for bobbing -->
+            <!-- Flower Group -->
             <g class="flower-group bob-flower">
               <path class="flower-stem f1" d="M360 260 C 410 280, 460 295, 510 295"/>
               <path class="flower-stem f2" d="M360 260 C 410 240, 460 235, 510 235"/>
@@ -835,7 +960,7 @@
               <path class="draw d7" d="M410 245 C 425 230, 455 240, 440 260 C 425 278, 395 260, 410 245 Z"/>
             </g>
 
-            <!-- RIGHT STICKMAN GROUP (with guitar) - separate group for float -->
+            <!-- Right Stickman Group -->
             <g class="right-stickman-group float-stickman-right">
               <circle class="draw d8" cx="700" cy="130" r="46"/>
               <path class="draw d9" d="M700 176 L700 340"/>
@@ -844,7 +969,7 @@
               <path class="draw d12" d="M700 225 L765 290"/>
             </g>
             
-            <!-- Guitar group - separate for wagging -->
+            <!-- Guitar Group -->
             <g class="guitar-group wag-guitar">
               <ellipse class="guitar-body g1" cx="750" cy="330" rx="60" ry="80" transform="rotate(-10 750 330)"/>
               <path class="guitar-neck g2" d="M685 270 L635 170 L610 150"/>
@@ -855,20 +980,23 @@
               <line x1="662" y1="241" x2="700" y2="310" class="guitar-detail g5" style="stroke:#cfa668; stroke-width:3.5"/>
             </g>
             
-            <!-- Heart - with pulse animation -->
+            <!-- Heart -->
             <g class="heart-group heart-pulse">
               <path class="draw" d="M450 200 Q480 160 510 200 Q480 240 450 200" style="stroke:#ff7aa8; stroke-width:6; fill:none; stroke-dasharray:400; stroke-dashoffset:400;"/>
             </g>
+            
+            <!-- Happy Valentine's Day Text -->
+            <text x="300" y="520" class="valentine-text">Happy Valentine's Day!</text>
+            <text x="380" y="570" class="valentine-subtext">with love, Juben ❤️</text>
           </svg>
         </div>
       </div>
     </div>
 
-    <!-- Section 2 - Message section with interactive love letter envelope -->
+    <!-- Section 2 -->
     <div class="section-2 locked" id="section2">
-      <!-- Abstract hearts and floating shapes -->
+      <!-- Abstract shapes -->
       <div class="abstract-shapes">
-        <!-- Hearts -->
         <div class="heart-shape">❤️</div>
         <div class="heart-shape">❤️</div>
         <div class="heart-shape">❤️</div>
@@ -878,7 +1006,6 @@
         <div class="heart-shape">❤️</div>
         <div class="heart-shape">❤️</div>
         
-        <!-- Flowers -->
         <div class="flower-shape">🌸</div>
         <div class="flower-shape">🌸</div>
         <div class="flower-shape">🌸</div>
@@ -888,7 +1015,6 @@
         <div class="flower-shape">🌸</div>
         <div class="flower-shape">🌸</div>
         
-        <!-- Abstract circles -->
         <div class="circle-shape"></div>
         <div class="circle-shape"></div>
         <div class="circle-shape"></div>
@@ -899,17 +1025,14 @@
       <div class="message" id="valentineMessage">
         <div class="envelope-container">
           <div class="envelope" id="loveEnvelope">
-            <!-- Envelope Seal -->
             <div class="envelope-seal">❤️</div>
             
-            <!-- Closed Envelope Content (Preview) -->
             <div class="envelope-closed-content">
               <div class="picture-placeholder-small"></div>
               <div class="greeting-small">For You</div>
               <div class="open-text">Open</div>
             </div>
             
-            <!-- Open Envelope Content (The Love Letter) -->
             <div class="envelope-open-content">
               <div class="love-letter">
                 <div class="letter-date">💌 For you, Domi</div>
@@ -955,9 +1078,7 @@
 
   <script>
     (function() {
-      // Reset on every page load/refresh - force to section 1
       window.addEventListener('beforeunload', function() {
-        // Reset scroll position to top
         window.scrollTo(0, 0);
       });
       
@@ -973,14 +1094,11 @@
         const volumeIndicator = document.getElementById('volumeIndicator');
         const musicInstruction = document.getElementById('musicInstruction');
         
-        // Flag to prevent rapid multiple play/pause triggers
         let isMusicActionInProgress = false;
 
-        // Set initial volume to 50% (0.5)
         if (bgMusic) {
           bgMusic.volume = 0.5;
           
-          // AGGRESSIVE AUTOPLAY - Try multiple times immediately but ensure only one attempt at a time
           function forcePlay() {
             if (isMusicActionInProgress) return;
             isMusicActionInProgress = true;
@@ -989,7 +1107,6 @@
               console.log('Music started successfully');
               musicToggle.textContent = '🔊';
               volumeIndicator.textContent = '11/10';
-              // Hide instruction when music plays
               if (musicInstruction) {
                 musicInstruction.style.display = 'none';
               }
@@ -1002,13 +1119,11 @@
               musicToggle.textContent = '🔇';
               volumeIndicator.textContent = 'Naka-pause';
               volumeIndicator.style.opacity = '1';
-              // Show instruction when music is off
               if (musicInstruction) {
                 musicInstruction.style.display = 'flex';
               }
               isMusicActionInProgress = false;
               
-              // Try again after a short delay, but only if not already playing
               setTimeout(() => {
                 if (bgMusic.paused) {
                   forcePlay();
@@ -1017,15 +1132,12 @@
             });
           }
           
-          // Start playing immediately
           forcePlay();
           
-          // Also try to play on any user interaction as backup (but prevent double triggers)
           const playOnInteraction = function() {
             if (!bgMusic.paused || isMusicActionInProgress) return;
             isMusicActionInProgress = true;
             bgMusic.play().then(() => {
-              // Hide instruction when music plays
               if (musicInstruction) {
                 musicInstruction.style.display = 'none';
               }
@@ -1042,22 +1154,18 @@
           document.addEventListener('touchstart', playOnInteraction);
         }
         
-        // Music toggle functionality - FIXED to prevent duplicate playback
         if (musicToggle && bgMusic) {
           musicToggle.addEventListener('click', function(e) {
             e.stopPropagation();
             
-            // Prevent rapid multiple clicks
             if (isMusicActionInProgress) return;
             isMusicActionInProgress = true;
             
             if (bgMusic.paused) {
               bgMusic.play().then(() => {
-                // Ensure volume stays at 50% (though it should already be)
                 bgMusic.volume = 0.5;
                 musicToggle.textContent = '🔊';
                 volumeIndicator.textContent = '11/10';
-                // Hide instruction when music plays
                 if (musicInstruction) {
                   musicInstruction.style.display = 'none';
                 }
@@ -1070,14 +1178,12 @@
               bgMusic.pause();
               musicToggle.textContent = '🔇';
               volumeIndicator.textContent = 'Naka-pause';
-              // Show instruction when music is paused
               if (musicInstruction) {
                 musicInstruction.style.display = 'flex';
               }
               isMusicActionInProgress = false;
             }
             
-            // Show volume indicator briefly
             volumeIndicator.style.opacity = '1';
             setTimeout(() => {
               volumeIndicator.style.opacity = '0';
@@ -1085,35 +1191,23 @@
           });
         }
         
-        // CRITICAL: Force reset to section 1 on every load
-        // This ensures no matter what, we start at the top
         window.scrollTo(0, 0);
         
-        // Reset to locked state
         body.classList.add('lock-scroll');
         body.classList.remove('unlock-scroll');
         section2.classList.add('locked');
         
-        // Double ensure we're at section 1
         if (section1) {
           section1.scrollIntoView({ block: 'start', behavior: 'auto' });
         }
         
-        // Calculate when all animations finish: 
-        // Last element (heart) starts at 5s delay + 4s draw time = 9s total
-        // Adding 1s buffer for full appreciation = 10 seconds
-        const animationDuration = 8000; // 8 seconds (heart finishes at 9s but we add buffer later, set to 9.5)
-        
+        // Unlock after animations complete (including text)
         setTimeout(() => {
-          // UNLOCK SECTION 2
-          // Remove lock class from body to enable scrolling
           body.classList.remove('lock-scroll');
           body.classList.add('unlock-scroll');
           
-          // Remove lock styling from section 2
           section2.classList.remove('locked');
           
-          // Smooth scroll to section 2 to reveal it
           if (section2 && window.SmoothScroll) {
             var scroll = new SmoothScroll();
             scroll.animateScroll(section2, null, {
@@ -1123,7 +1217,6 @@
               updateURL: false
             });
             
-            // Add subtle highlight effect to envelope
             if (envelope) {
               envelope.style.transition = 'box-shadow 0.5s ease';
               envelope.style.boxShadow = '0 0 30px 10px rgba(255,122,168,0.5)';
@@ -1132,22 +1225,18 @@
               }, 1000);
             }
           } else {
-            // Fallback
             if (section2) {
               section2.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
           }
-        }, 9500); // 9.5 seconds to ensure heart is fully drawn
+        }, 9500);
         
-        // Interactive envelope click
         if (envelope) {
           envelope.addEventListener('click', function(e) {
             e.stopPropagation();
             
-            // Toggle opened class
             this.classList.toggle('opened');
             
-            // Add a little sparkle effect
             const sparkle = document.createElement('div');
             sparkle.style.position = 'fixed';
             sparkle.style.top = e.clientY + 'px';
@@ -1165,7 +1254,7 @@
           });
         }
         
-        // Prevent any scrolling during lock period
+        // Scroll lock prevention
         body.addEventListener('wheel', function(e) {
           if (body.classList.contains('lock-scroll')) {
             e.preventDefault();
