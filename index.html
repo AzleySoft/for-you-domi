@@ -19,12 +19,13 @@
       position: relative;
     }
 
-    /* Lock scroll class */
+    /* Lock scroll class - applied to body when section 2 is locked */
     body.lock-scroll {
       overflow: hidden;
       height: 100vh;
     }
 
+    /* Unlock scroll class - applied when section 2 is available */
     body.unlock-scroll {
       overflow: auto;
       height: auto;
@@ -54,7 +55,7 @@
       to { transform: translateY(-15px) translateX(8px); }
     }
 
-    /* MUSIC CONTROL BUTTON - REMOVED PINK NOTIFICATION INDICATOR */
+    /* LARGE MUSIC CONTROL BUTTON */
     .music-control {
       position: fixed;
       bottom: 30px;
@@ -71,7 +72,7 @@
       font-size: 3rem;
       cursor: pointer;
       z-index: 9999;
-      box-shadow: 0 10px 30px rgba(255, 122, 168, 0.8);
+      box-shadow: 0 10px 30px rgba(255, 122, 168, 0.8), 0 0 0 8px rgba(255, 255, 255, 0.3);
       transition: all 0.3s ease;
       animation: musicPulse 1.5s ease-in-out infinite;
       text-shadow: 0 2px 10px rgba(0,0,0,0.5);
@@ -80,57 +81,110 @@
     .music-control:hover {
       transform: scale(1.15);
       background: rgba(255, 92, 148, 1);
-      box-shadow: 0 15px 40px #ff4d88;
+      box-shadow: 0 15px 40px #ff4d88, 0 0 0 12px rgba(255, 255, 255, 0.5);
     }
 
     @keyframes musicPulse {
       0%, 100% { 
-        box-shadow: 0 10px 30px rgba(255, 122, 168, 0.8);
+        box-shadow: 0 10px 30px rgba(255, 122, 168, 0.8), 0 0 0 8px rgba(255, 255, 255, 0.3);
         transform: scale(1);
       }
       50% { 
-        box-shadow: 0 20px 50px #ff7aa8;
+        box-shadow: 0 20px 50px #ff7aa8, 0 0 0 15px rgba(255, 255, 255, 0.6);
         transform: scale(1.1);
       }
     }
 
-    /* VOLUME INDICATOR - Simplified */
+    /* ENLARGED VOLUME INDICATOR */
     .volume-indicator {
       position: fixed;
       bottom: 120px;
       right: 40px;
       background: rgba(0, 0, 0, 0.85);
       color: white;
-      padding: 10px 20px;
-      border-radius: 30px;
-      font-size: 1rem;
+      padding: 15px 25px;
+      border-radius: 50px;
+      font-size: 1.4rem;
       font-weight: bold;
       z-index: 9999;
-      border: 2px solid #ff7aa8;
+      backdrop-filter: blur(10px);
+      border: 3px solid #ff7aa8;
       opacity: 0;
       transition: opacity 0.3s ease;
       pointer-events: none;
       white-space: nowrap;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      letter-spacing: 1px;
+    }
+
+    .volume-indicator::before {
+      content: '🎵';
+      margin-right: 10px;
+      font-size: 1.8rem;
     }
 
     .music-control:hover + .volume-indicator {
       opacity: 1;
     }
 
-    /* Mobile adjustments */
+    /* Music instruction badge */
+    .music-instruction {
+      position: fixed;
+      bottom: 120px;
+      right: 40px;
+      background: linear-gradient(135deg, #ff7aa8, #ff4d88);
+      color: white;
+      padding: 18px 30px;
+      border-radius: 60px;
+      font-size: 1.5rem;
+      font-weight: bold;
+      z-index: 9998;
+      border: 3px solid white;
+      box-shadow: 0 15px 30px rgba(0,0,0,0.4), 0 0 0 5px rgba(255,122,168,0.3);
+      animation: instructionBounce 2s ease-in-out infinite;
+      white-space: nowrap;
+      pointer-events: none;
+      text-shadow: 0 2px 5px rgba(0,0,0,0.3);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .music-instruction span {
+      font-size: 2.2rem;
+      margin-right: 5px;
+    }
+
+    @keyframes instructionBounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-15px); }
+    }
+
+    /* Mobile adjustments for music controls */
     @media (max-width: 600px) {
       .music-control {
-        width: 60px;
-        height: 60px;
-        font-size: 2rem;
+        width: 70px;
+        height: 70px;
+        font-size: 2.5rem;
         bottom: 20px;
         right: 20px;
       }
+      
       .volume-indicator {
-        bottom: 90px;
+        bottom: 100px;
         right: 25px;
-        padding: 8px 15px;
-        font-size: 0.9rem;
+        padding: 12px 20px;
+        font-size: 1.2rem;
+      }
+      
+      .music-instruction {
+        bottom: 100px;
+        right: 25px;
+        padding: 15px 25px;
+        font-size: 1.2rem;
+        white-space: normal;
+        max-width: 280px;
+        text-align: center;
       }
     }
 
@@ -160,7 +214,7 @@
       overflow: hidden;
     }
 
-    /* Floating Hearts Background */
+    /* Floating Hearts Background Animation */
     .floating-hearts-bg {
       position: absolute;
       top: 0;
@@ -173,28 +227,29 @@
 
     .floating-heart {
       position: absolute;
-      color: rgba(255, 122, 168, 0.25);
+      color: rgba(255, 122, 168, 0.3);
       font-size: 2rem;
-      filter: drop-shadow(0 0 10px rgba(255, 122, 168, 0.4));
+      filter: drop-shadow(0 0 15px rgba(255, 122, 168, 0.5));
       animation: floatHeart 8s ease-in-out infinite;
       opacity: 0;
+      z-index: 2;
     }
 
-    .floating-heart:nth-child(1) { top: 15%; left: 10%; animation-delay: 1s; }
-    .floating-heart:nth-child(2) { top: 70%; left: 20%; animation-delay: 3s; }
-    .floating-heart:nth-child(3) { top: 30%; right: 15%; animation-delay: 2s; }
-    .floating-heart:nth-child(4) { bottom: 20%; right: 25%; animation-delay: 4s; }
-    .floating-heart:nth-child(5) { top: 50%; left: 40%; animation-delay: 2.5s; }
-    .floating-heart:nth-child(6) { bottom: 40%; left: 60%; animation-delay: 5s; }
-    .floating-heart:nth-child(7) { top: 80%; right: 40%; animation-delay: 3.5s; }
-    .floating-heart:nth-child(8) { top: 20%; right: 60%; animation-delay: 4.5s; }
-    .floating-heart:nth-child(9) { bottom: 60%; left: 80%; animation-delay: 1.5s; }
-    .floating-heart:nth-child(10) { top: 45%; right: 70%; animation-delay: 5.5s; }
+    .floating-heart:nth-child(1) { top: 15%; left: 10%; animation-delay: 1s; font-size: 2.5rem; }
+    .floating-heart:nth-child(2) { top: 70%; left: 20%; animation-delay: 3s; font-size: 2rem; }
+    .floating-heart:nth-child(3) { top: 30%; right: 15%; animation-delay: 2s; font-size: 3rem; }
+    .floating-heart:nth-child(4) { bottom: 20%; right: 25%; animation-delay: 4s; font-size: 2.2rem; }
+    .floating-heart:nth-child(5) { top: 50%; left: 40%; animation-delay: 2.5s; font-size: 2.8rem; }
+    .floating-heart:nth-child(6) { bottom: 40%; left: 60%; animation-delay: 5s; font-size: 2.4rem; }
+    .floating-heart:nth-child(7) { top: 80%; right: 40%; animation-delay: 3.5s; font-size: 2.1rem; }
+    .floating-heart:nth-child(8) { top: 20%; right: 60%; animation-delay: 4.5s; font-size: 2.6rem; }
+    .floating-heart:nth-child(9) { bottom: 60%; left: 80%; animation-delay: 1.5s; font-size: 2.3rem; }
+    .floating-heart:nth-child(10) { top: 45%; right: 70%; animation-delay: 5.5s; font-size: 2.7rem; }
 
     @keyframes floatHeart {
       0% { transform: translateY(100vh) rotate(0deg) scale(0.5); opacity: 0; }
       10% { opacity: 0.5; }
-      50% { opacity: 0.7; }
+      50% { opacity: 0.8; }
       90% { opacity: 0.5; }
       100% { transform: translateY(-100px) rotate(360deg) scale(1.2); opacity: 0; }
     }
@@ -202,13 +257,14 @@
     /* Sparkle particles */
     .sparkle-particle {
       position: absolute;
-      width: 3px;
-      height: 3px;
+      width: 4px;
+      height: 4px;
       background: white;
       border-radius: 50%;
       filter: blur(1px);
       animation: sparkle 4s ease-in-out infinite;
       opacity: 0;
+      z-index: 2;
     }
 
     .sparkle-particle:nth-child(11) { top: 25%; left: 15%; animation-delay: 0.5s; }
@@ -224,11 +280,12 @@
 
     @keyframes sparkle {
       0%, 100% { transform: scale(0); opacity: 0; }
-      25% { transform: scale(1.5); opacity: 0.8; box-shadow: 0 0 10px #fff; }
+      25% { transform: scale(1.5); opacity: 0.8; box-shadow: 0 0 15px #fff; }
       50% { transform: scale(1); opacity: 0.4; }
+      75% { transform: scale(0.8); opacity: 0.2; }
     }
 
-    /* Light overlay */
+    /* Fade overlay for section 1 background - REMOVED THE BLACK FADE EFFECT */
     .section-1::before {
       content: '';
       position: absolute;
@@ -236,13 +293,13 @@
       left: 0;
       right: 0;
       bottom: 0;
-      background: rgba(0, 0, 0, 0.2);
-      backdrop-filter: brightness(0.9) blur(1px);
+      background: rgba(0, 0, 0, 0.3); /* Kept only the light overlay for visibility */
+      backdrop-filter: brightness(0.8) blur(2px);
       z-index: 3;
       pointer-events: none;
     }
 
-    /* Subtle gradient */
+    /* Gradient overlay - REMOVED THE BLACK FADE EFFECT */
     .section-1::after {
       content: '';
       position: absolute;
@@ -250,7 +307,7 @@
       left: 0;
       right: 0;
       bottom: 0;
-      background: linear-gradient(145deg, rgba(10,15,34,0.1) 0%, rgba(31,43,92,0.05) 100%);
+      background: linear-gradient(145deg, rgba(10,15,34,0.2) 0%, rgba(31,43,92,0.1) 100%); /* Reduced opacity */
       z-index: 4;
       pointer-events: none;
     }
@@ -271,14 +328,15 @@
       justify-content: center;
       align-items: center;
       padding: 10px 0;
-      filter: drop-shadow(0 0 25px rgba(255,255,255,0.4));
+      filter: drop-shadow(0 0 25px rgba(255,255,255,0.5)) drop-shadow(0 0 15px rgba(255,122,168,0.5));
+      transition: filter 0.5s ease;
     }
 
     svg {
       width: 100%;
       height: auto;
       max-width: 950px;
-      filter: drop-shadow(0 10px 20px rgba(0,0,0,0.4));
+      filter: drop-shadow(0 15px 30px rgba(0,0,0,0.6));
     }
 
     /* Drawing styles */
@@ -291,6 +349,7 @@
       stroke-dasharray: 1400;
       stroke-dashoffset: 1400;
       animation: drawStroke 5s ease forwards;
+      filter: drop-shadow(0 0 5px rgba(0,0,0,0.5));
     }
     .flower-stem {
       fill: none;
@@ -301,6 +360,7 @@
       stroke-dasharray: 900;
       stroke-dashoffset: 900;
       animation: drawStroke 4.5s ease forwards;
+      filter: drop-shadow(0 0 5px rgba(0,0,0,0.5));
     }
     .flower-bud {
       fill: none;
@@ -311,6 +371,7 @@
       stroke-dasharray: 500;
       stroke-dashoffset: 500;
       animation: drawStroke 4s ease forwards;
+      filter: drop-shadow(0 0 5px rgba(0,0,0,0.5));
     }
     .guitar-body, .guitar-neck, .guitar-detail {
       fill: none;
@@ -321,86 +382,9 @@
       stroke-dasharray: 900;
       stroke-dashoffset: 900;
       animation: drawStroke 5s ease forwards;
+      filter: drop-shadow(0 0 5px rgba(0,0,0,0.5));
     }
     
-    /* NEW: Grass and ground elements */
-    .grass {
-      stroke: #7cb342;
-      stroke-width: 5;
-      stroke-linecap: round;
-      stroke-dasharray: 800;
-      stroke-dashoffset: 800;
-      animation: drawStroke 4s ease forwards 2s;
-    }
-    
-    .ground {
-      stroke: #8b6b4d;
-      stroke-width: 8;
-      stroke-linecap: round;
-      stroke-dasharray: 1200;
-      stroke-dashoffset: 1200;
-      animation: drawStroke 3s ease forwards 1s;
-    }
-    
-    /* NEW: Birds */
-    .bird {
-      stroke: #ffffff;
-      stroke-width: 4;
-      stroke-linecap: round;
-      fill: none;
-      stroke-dasharray: 200;
-      stroke-dashoffset: 200;
-      animation: drawStroke 2s ease forwards 3s;
-    }
-    
-    .bird-group1 {
-      animation: birdFly 8s ease-in-out infinite 5s;
-    }
-    .bird-group2 {
-      animation: birdFly 10s ease-in-out infinite 6s;
-    }
-    
-    @keyframes birdFly {
-      0%, 100% { transform: translate(0, 0); }
-      25% { transform: translate(10px, -5px); }
-      50% { transform: translate(15px, -10px); }
-      75% { transform: translate(5px, -3px); }
-    }
-    
-    /* NEW: Sun/Cloud */
-    .sun {
-      stroke: #ffd700;
-      stroke-width: 6;
-      fill: none;
-      stroke-dasharray: 600;
-      stroke-dashoffset: 600;
-      animation: drawStroke 3s ease forwards 0.5s;
-    }
-    .sun-rays {
-      stroke: #ffd700;
-      stroke-width: 3;
-      stroke-dasharray: 400;
-      stroke-dashoffset: 400;
-      animation: drawStroke 2.5s ease forwards 1s;
-    }
-    
-    .cloud {
-      stroke: #ffffff;
-      stroke-width: 5;
-      fill: none;
-      stroke-dasharray: 700;
-      stroke-dashoffset: 700;
-      animation: drawStroke 4s ease forwards 2.5s;
-    }
-    .cloud-group {
-      animation: cloudFloat 12s ease-in-out infinite 6s;
-    }
-    
-    @keyframes cloudFloat {
-      0%, 100% { transform: translateX(0); }
-      50% { transform: translateX(20px); }
-    }
-
     /* Happy Valentine's Day Text */
     .valentine-text {
       font-family: 'Brush Script MT', cursive, sans-serif;
@@ -410,7 +394,7 @@
       stroke: white;
       stroke-width: 2;
       paint-order: stroke fill;
-      filter: drop-shadow(0 0 10px #ff4d88);
+      filter: drop-shadow(0 0 10px #ff4d88) drop-shadow(0 0 20px rgba(255,255,255,0.8));
       opacity: 0;
       animation: fadeInText 2s ease forwards 4s;
     }
@@ -422,7 +406,7 @@
       stroke: #ff7aa8;
       stroke-width: 1;
       paint-order: stroke fill;
-      filter: drop-shadow(0 0 5px rgba(255,255,255,0.5));
+      filter: drop-shadow(0 0 8px rgba(255,255,255,0.5));
       opacity: 0;
       animation: fadeInText 2s ease forwards 6s;
     }
@@ -436,7 +420,7 @@
     .draw[style*="#ff7aa8"] {
       stroke: #ffb6c1;
       stroke-width: 8;
-      filter: drop-shadow(0 0 8px #ff4d88);
+      filter: drop-shadow(0 0 8px #ff4d88) drop-shadow(0 0 5px rgba(0,0,0,0.5));
       animation: drawStroke 4s ease forwards 5s;
     }
 
@@ -489,11 +473,10 @@
     .heart-pulse {
       animation: heartPulse 2s ease-in-out infinite 10s;
       transform-origin: center;
-      filter: drop-shadow(0 0 8px #ff4d88);
+      filter: drop-shadow(0 0 8px #ff4d88) drop-shadow(0 0 15px #ffb6c1);
     }
-    .grass-sway {
-      animation: sway 5s ease-in-out infinite 8s;
-      transform-origin: bottom;
+    .text-glow {
+      animation: textGlow 3s ease-in-out infinite 9s;
     }
 
     @keyframes gentleFloat {
@@ -514,10 +497,14 @@
       0%, 100% { transform: scale(1); opacity: 0.9; }
       50% { transform: scale(1.15); opacity: 1; }
     }
-    @keyframes sway {
-      0%, 100% { transform: skewX(0deg); }
-      25% { transform: skewX(1deg); }
-      75% { transform: skewX(-1deg); }
+    @keyframes textGlow {
+      0%, 100% { filter: drop-shadow(0 0 10px #ff4d88) drop-shadow(0 0 20px rgba(255,255,255,0.5)); }
+      50% { filter: drop-shadow(0 0 20px #ff7aa8) drop-shadow(0 0 30px rgba(255,255,255,0.8)); }
+    }
+
+    /* Group wrappers */
+    .left-stickman-group, .right-stickman-group, .flower-group, .guitar-group, .heart-group {
+      transition: all 0.3s ease;
     }
 
     /* Section 2 */
@@ -550,32 +537,35 @@
       font-size: 3rem;
       animation: float 8s ease-in-out infinite;
       filter: drop-shadow(0 0 15px rgba(255, 122, 168, 0.3));
+      user-select: none;
     }
 
-    .heart-shape:nth-child(1) { top: 10%; left: 5%; animation-delay: 0s; }
-    .heart-shape:nth-child(2) { top: 70%; left: 15%; animation-delay: 1s; }
-    .heart-shape:nth-child(3) { top: 30%; right: 10%; animation-delay: 2s; }
-    .heart-shape:nth-child(4) { bottom: 15%; right: 20%; animation-delay: 3s; }
-    .heart-shape:nth-child(5) { top: 50%; left: 20%; animation-delay: 4s; }
-    .heart-shape:nth-child(6) { bottom: 30%; left: 30%; animation-delay: 5s; }
-    .heart-shape:nth-child(7) { top: 15%; right: 25%; animation-delay: 6s; }
-    .heart-shape:nth-child(8) { bottom: 10%; left: 60%; animation-delay: 7s; }
+    .heart-shape:nth-child(1) { top: 10%; left: 5%; animation-delay: 0s; font-size: 4rem; }
+    .heart-shape:nth-child(2) { top: 70%; left: 15%; animation-delay: 1s; font-size: 3.5rem; }
+    .heart-shape:nth-child(3) { top: 30%; right: 10%; animation-delay: 2s; font-size: 5rem; }
+    .heart-shape:nth-child(4) { bottom: 15%; right: 20%; animation-delay: 3s; font-size: 3rem; }
+    .heart-shape:nth-child(5) { top: 50%; left: 20%; animation-delay: 4s; font-size: 4.5rem; }
+    .heart-shape:nth-child(6) { bottom: 30%; left: 30%; animation-delay: 5s; font-size: 3.8rem; }
+    .heart-shape:nth-child(7) { top: 15%; right: 25%; animation-delay: 6s; font-size: 4.2rem; }
+    .heart-shape:nth-child(8) { bottom: 10%; left: 60%; animation-delay: 7s; font-size: 3.2rem; }
 
     .flower-shape {
       position: absolute;
       color: rgba(255, 200, 220, 0.15);
       font-size: 2.8rem;
       animation: floatAlt 10s ease-in-out infinite;
+      filter: drop-shadow(0 0 15px rgba(255, 200, 220, 0.3));
+      user-select: none;
     }
 
-    .flower-shape:nth-child(9) { top: 20%; right: 15%; animation-delay: 0.5s; }
-    .flower-shape:nth-child(10) { bottom: 25%; left: 40%; animation-delay: 1.5s; }
-    .flower-shape:nth-child(11) { top: 60%; right: 30%; animation-delay: 2.5s; }
-    .flower-shape:nth-child(12) { bottom: 40%; left: 15%; animation-delay: 3.5s; }
-    .flower-shape:nth-child(13) { top: 75%; left: 70%; animation-delay: 4.5s; }
-    .flower-shape:nth-child(14) { bottom: 60%; right: 40%; animation-delay: 5.5s; }
-    .flower-shape:nth-child(15) { top: 40%; left: 80%; animation-delay: 6.5s; }
-    .flower-shape:nth-child(16) { bottom: 70%; right: 60%; animation-delay: 7.5s; }
+    .flower-shape:nth-child(9) { top: 20%; right: 15%; animation-delay: 0.5s; font-size: 3.5rem; }
+    .flower-shape:nth-child(10) { bottom: 25%; left: 40%; animation-delay: 1.5s; font-size: 4rem; }
+    .flower-shape:nth-child(11) { top: 60%; right: 30%; animation-delay: 2.5s; font-size: 3rem; }
+    .flower-shape:nth-child(12) { bottom: 40%; left: 15%; animation-delay: 3.5s; font-size: 4.2rem; }
+    .flower-shape:nth-child(13) { top: 75%; left: 70%; animation-delay: 4.5s; font-size: 3.8rem; }
+    .flower-shape:nth-child(14) { bottom: 60%; right: 40%; animation-delay: 5.5s; font-size: 3.3rem; }
+    .flower-shape:nth-child(15) { top: 40%; left: 80%; animation-delay: 6.5s; font-size: 4rem; }
+    .flower-shape:nth-child(16) { bottom: 70%; right: 60%; animation-delay: 7.5s; font-size: 3.6rem; }
 
     .circle-shape {
       position: absolute;
@@ -586,19 +576,22 @@
       animation: pulse 6s ease-in-out infinite;
     }
 
-    .circle-shape:nth-child(17) { top: 10%; right: 10%; width: 200px; height: 200px; }
-    .circle-shape:nth-child(18) { bottom: 5%; left: 5%; width: 250px; height: 250px; }
-    .circle-shape:nth-child(19) { top: 40%; left: 20%; width: 180px; height: 180px; }
-    .circle-shape:nth-child(20) { bottom: 30%; right: 15%; width: 220px; height: 220px; }
+    .circle-shape:nth-child(17) { top: 10%; right: 10%; width: 200px; height: 200px; animation-delay: 0s; }
+    .circle-shape:nth-child(18) { bottom: 5%; left: 5%; width: 250px; height: 250px; animation-delay: 1s; }
+    .circle-shape:nth-child(19) { top: 40%; left: 20%; width: 180px; height: 180px; animation-delay: 2s; }
+    .circle-shape:nth-child(20) { bottom: 30%; right: 15%; width: 220px; height: 220px; animation-delay: 3s; }
 
     @keyframes float {
       0%, 100% { transform: translateY(0) rotate(0deg) scale(1); }
+      25% { transform: translateY(-20px) rotate(5deg) scale(1.1); }
       50% { transform: translateY(-30px) rotate(10deg) scale(1.2); }
+      75% { transform: translateY(-20px) rotate(5deg) scale(1.1); }
     }
 
     @keyframes floatAlt {
       0%, 100% { transform: translateY(0) rotate(0deg) scale(1); }
-      50% { transform: translateY(-25px) rotate(-8deg) scale(1.15); }
+      33% { transform: translateY(-25px) rotate(-8deg) scale(1.15); }
+      66% { transform: translateY(-15px) rotate(8deg) scale(1.05); }
     }
 
     @keyframes pulse {
@@ -629,6 +622,10 @@
       width: 100%;
       position: relative;
       z-index: 10;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
     }
 
     /* Envelope Container */
@@ -641,17 +638,20 @@
       perspective: 1000px;
     }
 
+    /* Envelope Style */
     .envelope {
       position: relative;
       width: 100%;
       background: linear-gradient(145deg, #ffb6c1, #ff8aaa);
       border-radius: 20px 20px 15px 15px;
       padding: 40px 30px;
-      box-shadow: 0 20px 30px rgba(0,0,0,0.3);
+      box-shadow: 0 20px 30px rgba(0,0,0,0.3), 0 0 0 2px #fff3, 0 0 0 5px #ff7aa8;
       transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      transform-style: preserve-3d;
       border: 1px solid rgba(255,255,255,0.5);
     }
 
+    /* Envelope Flap */
     .envelope::before {
       content: '';
       position: absolute;
@@ -667,6 +667,7 @@
       border-bottom: none;
     }
 
+    /* Envelope Seal (Heart) */
     .envelope-seal {
       position: absolute;
       top: -15px;
@@ -676,6 +677,7 @@
       z-index: 30;
       filter: drop-shadow(0 5px 5px rgba(0,0,0,0.3));
       animation: sealPulse 2s ease-in-out infinite;
+      transition: all 0.3s ease;
     }
 
     @keyframes sealPulse {
@@ -683,6 +685,7 @@
       50% { transform: translateX(-50%) scale(1.2); }
     }
 
+    /* Closed Envelope Content */
     .envelope-closed-content {
       display: flex;
       flex-direction: column;
@@ -690,6 +693,8 @@
       gap: 10px;
       color: white;
       text-shadow: 0 2px 5px rgba(0,0,0,0.3);
+      position: relative;
+      z-index: 5;
     }
 
     .envelope-closed-content .greeting-small {
@@ -699,6 +704,7 @@
       padding: 8px 20px;
       border-radius: 30px;
       backdrop-filter: blur(5px);
+      border: 1px solid rgba(255,255,255,0.3);
     }
 
     .envelope-closed-content .open-text {
@@ -713,9 +719,11 @@
       50% { transform: translateY(-5px); }
     }
 
+    /* Open Envelope Content */
     .envelope-open-content {
       display: none;
       opacity: 0;
+      transition: all 0.5s ease;
     }
 
     .envelope.opened .envelope-closed-content {
@@ -731,6 +739,7 @@
       background: white;
       padding: 40px 30px;
       transform: scale(1.02);
+      box-shadow: 0 30px 40px rgba(255,122,168,0.4), 0 0 0 2px #ff7aa8, 0 0 0 5px #ffb6c1;
     }
 
     .envelope.opened::before {
@@ -738,13 +747,14 @@
       opacity: 0.8;
     }
 
+    /* Letter Style */
     .love-letter {
       background: #fff9f0;
       background-image: linear-gradient(#f5e6d3 1px, transparent 1px);
       background-size: 100% 30px;
       padding: 40px 25px 25px;
       border-radius: 15px;
-      box-shadow: inset 0 0 20px rgba(0,0,0,0.05);
+      box-shadow: inset 0 0 20px rgba(0,0,0,0.05), 0 5px 15px rgba(0,0,0,0.2);
       border: 1px solid #ffd9e6;
       position: relative;
       font-family: 'Courier New', cursive, sans-serif;
@@ -785,6 +795,7 @@
       color: #ff4d88;
       margin-bottom: 15px;
       font-weight: bold;
+      text-shadow: 2px 2px 0 #ffe6f0;
     }
 
     .letter-body {
@@ -793,6 +804,7 @@
       color: #4a3729;
       margin: 20px 0;
       text-align: left;
+      padding: 0 10px;
     }
 
     .letter-signature {
@@ -819,6 +831,20 @@
       background-size: cover;
       margin: 10px auto;
       border: 2px solid rgba(255,255,255,0.5);
+      box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+    }
+
+    .click-hint {
+      margin-top: 15px;
+      color: rgba(255,255,255,0.8);
+      font-size: 0.9rem;
+      text-shadow: 0 2px 5px rgba(0,0,0,0.3);
+      animation: hintPulse 2s ease-in-out infinite;
+    }
+
+    @keyframes hintPulse {
+      0%, 100% { opacity: 0.7; }
+      50% { opacity: 1; }
     }
 
     .signature {
@@ -828,22 +854,53 @@
       letter-spacing: 3px;
     }
 
+    /* Mobile adjustments */
     @media (max-width: 600px) {
-      .section-1 { background-attachment: scroll; }
-      .valentine-text { font-size: 32px; }
-      .valentine-subtext { font-size: 18px; }
+      .picture-placeholder {
+        width: 100px;
+        height: 100px;
+      }
+      .section-1 {
+        background-attachment: scroll;
+      }
       .heart-shape { font-size: 2.5rem; }
       .flower-shape { font-size: 2.2rem; }
       .circle-shape { width: 100px; height: 100px; }
-      .envelope { padding: 30px 20px; }
-      .letter-body { font-size: 1rem; }
+      
+      .envelope {
+        padding: 30px 20px;
+      }
+      
+      .letter-body {
+        font-size: 1rem;
+        line-height: 1.8;
+      }
+      
+      .letter-greeting {
+        font-size: 1.5rem;
+      }
+      
+      .valentine-text {
+        font-size: 32px;
+      }
+      
+      .valentine-subtext {
+        font-size: 18px;
+      }
+    }
+
+    .section-1 {
+      background-color: #1a1f35;
     }
   </style>
 </head>
 <body class="lock-scroll">
-  <!-- Music Control - PINK NOTIFICATION REMOVED -->
+  <!-- Music Control -->
   <div class="music-control" id="musicToggle">🔊</div>
   <div class="volume-indicator" id="volumeIndicator">11/10</div>
+  <div class="music-instruction" id="musicInstruction" style="display: none;">
+    <span>🔊</span> Click button for music
+  </div>
   
   <audio id="bgMusic" loop preload="auto" playsinline>
     <source src="background-music.mp3" type="audio/mpeg">
@@ -851,9 +908,9 @@
   </audio>
 
   <div class="container">
-    <!-- Section 1 - Enhanced with birds, land, grass -->
+    <!-- Section 1 - Enhanced with background animations and Valentine's text -->
     <div class="section-1" id="section1">
-      <!-- Floating Hearts Background -->
+      <!-- Floating Hearts Background Animation -->
       <div class="floating-hearts-bg">
         <div class="floating-heart">❤️</div>
         <div class="floating-heart">❤️</div>
@@ -880,68 +937,8 @@
       </div>
       
       <div class="scene">
-        <div class="animation-area">
+        <div class="animation-area" id="drawingFocus">
           <svg viewBox="0 0 1000 600" preserveAspectRatio="xMidYMid meet">
-            <!-- SUN and CLOUDS - Background elements -->
-            <g class="cloud-group">
-              <circle class="cloud" cx="150" cy="80" r="30" fill="none"/>
-              <circle class="cloud" cx="180" cy="70" r="25" fill="none"/>
-              <circle class="cloud" cx="120" cy="70" r="25" fill="none"/>
-              <circle class="cloud" cx="210" cy="85" r="20" fill="none"/>
-            </g>
-            
-            <g class="cloud-group" style="transform: translateX(500px);">
-              <circle class="cloud" cx="150" cy="120" r="25" fill="none"/>
-              <circle class="cloud" cx="175" cy="110" r="20" fill="none"/>
-              <circle class="cloud" cx="125" cy="110" r="20" fill="none"/>
-            </g>
-            
-            <!-- Sun -->
-            <circle class="sun" cx="800" cy="80" r="35" fill="none"/>
-            <line class="sun-rays" x1="800" y1="30" x2="800" y2="45"/>
-            <line class="sun-rays" x1="800" y1="115" x2="800" y2="130"/>
-            <line class="sun-rays" x1="755" y1="55" x2="765" y2="70"/>
-            <line class="sun-rays" x1="835" y1="55" x2="845" y2="70"/>
-            <line class="sun-rays" x1="755" y1="105" x2="765" y2="90"/>
-            <line class="sun-rays" x1="835" y1="105" x2="845" y2="90"/>
-            
-            <!-- BIRDS - Flying in the sky -->
-            <g class="bird-group1">
-              <path class="bird" d="M100 180 Q115 165, 130 180"/>
-              <path class="bird" d="M140 170 Q155 155, 170 170"/>
-              <path class="bird" d="M180 190 Q195 175, 210 190"/>
-            </g>
-            
-            <g class="bird-group2">
-              <path class="bird" d="M650 150 Q665 135, 680 150"/>
-              <path class="bird" d="M690 140 Q705 125, 720 140"/>
-              <path class="bird" d="M730 160 Q745 145, 760 160"/>
-            </g>
-            
-            <!-- GROUND and GRASS -->
-            <path class="ground" d="M0 470 L1000 470" />
-            
-            <!-- Grass blades - left side -->
-            <path class="grass" d="M50 470 L45 430 L55 470" />
-            <path class="grass" d="M100 470 L95 420 L105 470" />
-            <path class="grass" d="M150 470 L145 440 L155 470" />
-            <path class="grass" d="M200 470 L195 410 L205 470" />
-            <path class="grass" d="M250 470 L245 430 L255 470" />
-            
-            <!-- Grass blades - middle -->
-            <path class="grass" d="M350 470 L345 420 L355 470" />
-            <path class="grass" d="M400 470 L395 435 L405 470" />
-            <path class="grass" d="M450 470 L445 415 L455 470" />
-            <path class="grass" d="M500 470 L495 425 L505 470" />
-            
-            <!-- Grass blades - right side -->
-            <path class="grass" d="M650 470 L645 430 L655 470" />
-            <path class="grass" d="M700 470 L695 420 L705 470" />
-            <path class="grass" d="M750 470 L745 440 L755 470" />
-            <path class="grass" d="M800 470 L795 410 L805 470" />
-            <path class="grass" d="M850 470 L845 435 L855 470" />
-            <path class="grass" d="M900 470 L895 425 L905 470" />
-            
             <!-- Left Stickman Group -->
             <g class="left-stickman-group float-stickman-left">
               <circle class="draw d1" cx="250" cy="130" r="48"/>
@@ -996,7 +993,7 @@
       </div>
     </div>
 
-    <!-- Section 2 (unchanged) -->
+    <!-- Section 2 -->
     <div class="section-2 locked" id="section2">
       <!-- Abstract shapes -->
       <div class="abstract-shapes">
@@ -1008,6 +1005,7 @@
         <div class="heart-shape">❤️</div>
         <div class="heart-shape">❤️</div>
         <div class="heart-shape">❤️</div>
+        
         <div class="flower-shape">🌸</div>
         <div class="flower-shape">🌸</div>
         <div class="flower-shape">🌸</div>
@@ -1016,6 +1014,7 @@
         <div class="flower-shape">🌸</div>
         <div class="flower-shape">🌸</div>
         <div class="flower-shape">🌸</div>
+        
         <div class="circle-shape"></div>
         <div class="circle-shape"></div>
         <div class="circle-shape"></div>
@@ -1027,11 +1026,13 @@
         <div class="envelope-container">
           <div class="envelope" id="loveEnvelope">
             <div class="envelope-seal">❤️</div>
+            
             <div class="envelope-closed-content">
               <div class="picture-placeholder-small"></div>
               <div class="greeting-small">For You</div>
               <div class="open-text">Open</div>
             </div>
+            
             <div class="envelope-open-content">
               <div class="love-letter">
                 <div class="letter-date">💌 For you, Domi</div>
@@ -1077,6 +1078,10 @@
 
   <script>
     (function() {
+      window.addEventListener('beforeunload', function() {
+        window.scrollTo(0, 0);
+      });
+      
       window.addEventListener('load', function() {
         const body = document.body;
         const section1 = document.getElementById('section1');
@@ -1087,6 +1092,7 @@
         const bgMusic = document.getElementById('bgMusic');
         const musicToggle = document.getElementById('musicToggle');
         const volumeIndicator = document.getElementById('volumeIndicator');
+        const musicInstruction = document.getElementById('musicInstruction');
         
         let isMusicActionInProgress = false;
 
@@ -1098,21 +1104,54 @@
             isMusicActionInProgress = true;
             
             bgMusic.play().then(() => {
+              console.log('Music started successfully');
               musicToggle.textContent = '🔊';
               volumeIndicator.textContent = '11/10';
+              if (musicInstruction) {
+                musicInstruction.style.display = 'none';
+              }
               setTimeout(() => {
                 volumeIndicator.style.opacity = '0';
               }, 2000);
               isMusicActionInProgress = false;
             }).catch(error => {
+              console.log('Autoplay prevented:', error);
               musicToggle.textContent = '🔇';
               volumeIndicator.textContent = 'Naka-pause';
               volumeIndicator.style.opacity = '1';
+              if (musicInstruction) {
+                musicInstruction.style.display = 'flex';
+              }
               isMusicActionInProgress = false;
+              
+              setTimeout(() => {
+                if (bgMusic.paused) {
+                  forcePlay();
+                }
+              }, 500);
             });
           }
           
           forcePlay();
+          
+          const playOnInteraction = function() {
+            if (!bgMusic.paused || isMusicActionInProgress) return;
+            isMusicActionInProgress = true;
+            bgMusic.play().then(() => {
+              if (musicInstruction) {
+                musicInstruction.style.display = 'none';
+              }
+              isMusicActionInProgress = false;
+            }).catch(e => {
+              console.log('Interaction play failed:', e);
+              isMusicActionInProgress = false;
+            });
+            document.removeEventListener('click', playOnInteraction);
+            document.removeEventListener('touchstart', playOnInteraction);
+          };
+          
+          document.addEventListener('click', playOnInteraction);
+          document.addEventListener('touchstart', playOnInteraction);
         }
         
         if (musicToggle && bgMusic) {
@@ -1127,14 +1166,21 @@
                 bgMusic.volume = 0.5;
                 musicToggle.textContent = '🔊';
                 volumeIndicator.textContent = '11/10';
+                if (musicInstruction) {
+                  musicInstruction.style.display = 'none';
+                }
                 isMusicActionInProgress = false;
               }).catch(err => {
+                console.warn('Play failed:', err);
                 isMusicActionInProgress = false;
               });
             } else {
               bgMusic.pause();
               musicToggle.textContent = '🔇';
               volumeIndicator.textContent = 'Naka-pause';
+              if (musicInstruction) {
+                musicInstruction.style.display = 'flex';
+              }
               isMusicActionInProgress = false;
             }
             
@@ -1145,15 +1191,21 @@
           });
         }
         
-        // Initial setup
         window.scrollTo(0, 0);
+        
         body.classList.add('lock-scroll');
+        body.classList.remove('unlock-scroll');
         section2.classList.add('locked');
         
-        // Unlock after animations
+        if (section1) {
+          section1.scrollIntoView({ block: 'start', behavior: 'auto' });
+        }
+        
+        // Unlock after animations complete (including text)
         setTimeout(() => {
           body.classList.remove('lock-scroll');
           body.classList.add('unlock-scroll');
+          
           section2.classList.remove('locked');
           
           if (section2 && window.SmoothScroll) {
@@ -1164,27 +1216,66 @@
               offset: 0,
               updateURL: false
             });
-          } else if (section2) {
-            section2.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            
+            if (envelope) {
+              envelope.style.transition = 'box-shadow 0.5s ease';
+              envelope.style.boxShadow = '0 0 30px 10px rgba(255,122,168,0.5)';
+              setTimeout(() => {
+                envelope.style.boxShadow = '0 20px 30px rgba(0,0,0,0.3), 0 0 0 2px #fff3, 0 0 0 5px #ff7aa8';
+              }, 1000);
+            }
+          } else {
+            if (section2) {
+              section2.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
           }
         }, 9500);
         
-        // Envelope click
         if (envelope) {
           envelope.addEventListener('click', function(e) {
             e.stopPropagation();
+            
             this.classList.toggle('opened');
+            
+            const sparkle = document.createElement('div');
+            sparkle.style.position = 'fixed';
+            sparkle.style.top = e.clientY + 'px';
+            sparkle.style.left = e.clientX + 'px';
+            sparkle.style.transform = 'translate(-50%, -50%)';
+            sparkle.style.color = '#ff7aa8';
+            sparkle.style.fontSize = '2rem';
+            sparkle.style.pointerEvents = 'none';
+            sparkle.style.zIndex = '9999';
+            sparkle.style.animation = 'bounce 0.5s ease-out forwards';
+            sparkle.textContent = '❤️';
+            document.body.appendChild(sparkle);
+            
+            setTimeout(() => sparkle.remove(), 500);
           });
         }
         
         // Scroll lock prevention
         body.addEventListener('wheel', function(e) {
-          if (body.classList.contains('lock-scroll')) e.preventDefault();
+          if (body.classList.contains('lock-scroll')) {
+            e.preventDefault();
+          }
         }, { passive: false });
         
         body.addEventListener('touchmove', function(e) {
-          if (body.classList.contains('lock-scroll')) e.preventDefault();
+          if (body.classList.contains('lock-scroll')) {
+            e.preventDefault();
+          }
         }, { passive: false });
+        
+        window.addEventListener('keydown', function(e) {
+          if (body.classList.contains('lock-scroll')) {
+            const keys = ['ArrowUp', 'ArrowDown', 'PageUp', 'PageDown', 'Home', 'End', ' '];
+            if (keys.includes(e.key)) {
+              e.preventDefault();
+            }
+          }
+        });
+        
       });
     })();
   </script>
