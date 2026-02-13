@@ -267,7 +267,7 @@
       filter: drop-shadow(0 15px 30px rgba(0,0,0,0.6));
     }
 
-    /* Drawing styles */
+    /* Drawing styles - EXTENDED ANIMATION DURATIONS */
     .draw {
       fill: none;
       stroke: rgba(255, 255, 255, 0.98);
@@ -276,7 +276,7 @@
       stroke-linejoin: round;
       stroke-dasharray: 1400;
       stroke-dashoffset: 1400;
-      animation: drawStroke 3s ease forwards;
+      animation: drawStroke 5s ease forwards; /* Increased from 3s to 5s */
       filter: drop-shadow(0 0 5px rgba(0,0,0,0.5));
     }
     .flower-stem {
@@ -287,7 +287,7 @@
       stroke-linejoin: round;
       stroke-dasharray: 900;
       stroke-dashoffset: 900;
-      animation: drawStroke 2.2s ease forwards;
+      animation: drawStroke 4.5s ease forwards; /* Increased from 2.2s to 4.5s */
       filter: drop-shadow(0 0 5px rgba(0,0,0,0.5));
     }
     .flower-bud {
@@ -298,7 +298,7 @@
       stroke-linejoin: round;
       stroke-dasharray: 500;
       stroke-dashoffset: 500;
-      animation: drawStroke 1.6s ease forwards;
+      animation: drawStroke 4s ease forwards; /* Increased from 1.6s to 4s */
       filter: drop-shadow(0 0 5px rgba(0,0,0,0.5));
     }
     .guitar-body, .guitar-neck, .guitar-detail {
@@ -309,41 +309,42 @@
       stroke-linejoin: round;
       stroke-dasharray: 900;
       stroke-dashoffset: 900;
-      animation: drawStroke 2.4s ease forwards;
+      animation: drawStroke 5s ease forwards; /* Increased from 2.4s to 5s */
       filter: drop-shadow(0 0 5px rgba(0,0,0,0.5));
     }
     
-    /* Heart with extra glow */
+    /* Heart with extra glow - EXTENDED DELAY TO MATCH LONGER SEQUENCE */
     .draw[style*="#ff7aa8"] {
       stroke: #ffb6c1;
       stroke-width: 8;
       filter: drop-shadow(0 0 8px #ff4d88) drop-shadow(0 0 5px rgba(0,0,0,0.5));
+      animation: drawStroke 4s ease forwards 5s; /* Heart starts after 5s and draws over 4s */
     }
 
-    /* delays */
-    .d1 { animation-delay: 0.1s; }
-    .d2 { animation-delay: 0.15s; }
-    .d3 { animation-delay: 0.2s; }
-    .d4 { animation-delay: 0.25s; }
-    .d5 { animation-delay: 0.3s; }
-    .d6 { animation-delay: 0.35s; }
-    .d7 { animation-delay: 0.4s; }
-    .d8 { animation-delay: 0.45s; }
-    .d9 { animation-delay: 0.5s; }
-    .d10 { animation-delay: 0.55s; }
-    .d11 { animation-delay: 0.6s; }
-    .d12 { animation-delay: 0.65s; }
-    .f1 { animation-delay: 1.2s; }
-    .f2 { animation-delay: 1.35s; }
-    .f3 { animation-delay: 1.5s; }
-    .f4 { animation-delay: 1.65s; }
-    .f5 { animation-delay: 1.8s; }
-    .f6 { animation-delay: 1.95s; }
-    .g1 { animation-delay: 1.5s; }
-    .g2 { animation-delay: 1.65s; }
-    .g3 { animation-delay: 1.8s; }
-    .g4 { animation-delay: 1.95s; }
-    .g5 { animation-delay: 2.1s; }
+    /* delays - All delays increased to spread out the longer animation */
+    .d1 { animation-delay: 0.2s; }
+    .d2 { animation-delay: 0.3s; }
+    .d3 { animation-delay: 0.4s; }
+    .d4 { animation-delay: 0.5s; }
+    .d5 { animation-delay: 0.6s; }
+    .d6 { animation-delay: 0.7s; }
+    .d7 { animation-delay: 0.8s; }
+    .d8 { animation-delay: 0.9s; }
+    .d9 { animation-delay: 1.0s; }
+    .d10 { animation-delay: 1.1s; }
+    .d11 { animation-delay: 1.2s; }
+    .d12 { animation-delay: 1.3s; }
+    .f1 { animation-delay: 2.0s; }
+    .f2 { animation-delay: 2.2s; }
+    .f3 { animation-delay: 2.4s; }
+    .f4 { animation-delay: 3.2s; }  /* Flower buds start later */
+    .f5 { animation-delay: 3.4s; }
+    .f6 { animation-delay: 3.6s; }
+    .g1 { animation-delay: 2.8s; }
+    .g2 { animation-delay: 3.0s; }
+    .g3 { animation-delay: 3.2s; }
+    .g4 { animation-delay: 3.4s; }
+    .g5 { animation-delay: 3.6s; }
 
     @keyframes drawStroke {
       to { stroke-dashoffset: 0; }
@@ -744,10 +745,13 @@
   <!-- LARGE MUSIC CONTROL BUTTON -->
   <div class="music-control" id="musicToggle">🔊</div>
   
-  <!-- ENLARGED VOLUME INDICATOR (fixed missing element) -->
+  <!-- ENLARGED VOLUME INDICATOR -->
   <div class="volume-indicator" id="volumeIndicator">Volume: 50%</div>
   
-
+  <!-- Music instruction badge (initially hidden because we attempt autoplay) -->
+  <div class="music-instruction" id="musicInstruction" style="display: none;">
+    <span>🔊</span> I-click para magpatugtog
+  </div>
   
   <!-- Background Music - FORCED AUTOPLAY with preload -->
   <audio id="bgMusic" loop preload="auto" playsinline>
@@ -758,7 +762,7 @@
   </audio>
 
   <div class="container">
-    <!-- Section 1 - Drawing animation area with background image -->
+    <!-- Section 1 - Drawing animation area with background image (EXTENDED ANIMATION) -->
     <div class="section-1" id="section1">
       <div class="scene">
         <div class="animation-area" id="drawingFocus">
@@ -794,8 +798,8 @@
             <line x1="682" y1="271" x2="720" y2="340" class="guitar-detail g5" style="stroke:#cfa668; stroke-width:3.5"/>
             <line x1="672" y1="256" x2="710" y2="325" class="guitar-detail g5" style="stroke:#cfa668; stroke-width:3.5"/>
             <line x1="662" y1="241" x2="700" y2="310" class="guitar-detail g5" style="stroke:#cfa668; stroke-width:3.5"/>
-            <!-- Heart -->
-            <path class="draw" d="M450 200 Q480 160 510 200 Q480 240 450 200" style="stroke:#ff7aa8; stroke-width:6; fill:none; stroke-dasharray:400; stroke-dashoffset:400; animation:drawStroke 2s ease forwards 2.5s;"/>
+            <!-- Heart - Delayed start to appear at the end -->
+            <path class="draw" d="M450 200 Q480 160 510 200 Q480 240 450 200" style="stroke:#ff7aa8; stroke-width:6; fill:none; stroke-dasharray:400; stroke-dashoffset:400;"/>
           </svg>
         </div>
       </div>
@@ -934,7 +938,7 @@
             }).catch(error => {
               console.log('Autoplay prevented:', error);
               musicToggle.textContent = '🔇';
-              volumeIndicator.textContent = '10/10';
+              volumeIndicator.textContent = 'Naka-pause';
               volumeIndicator.style.opacity = '1';
               // Show instruction when music is off
               if (musicInstruction) {
@@ -1033,9 +1037,10 @@
           section1.scrollIntoView({ block: 'start', behavior: 'auto' });
         }
         
-        // Calculate when all animations finish (heart finishes at 2.5s + 2s = 4.5s)
-        // Using 5 seconds to be safe and allow full appreciation
-        const animationDuration = 5000; // 5 seconds
+        // Calculate when all animations finish: 
+        // Last element (heart) starts at 5s delay + 4s draw time = 9s total
+        // Adding 1s buffer for full appreciation = 10 seconds
+        const animationDuration = 10000; // 10 seconds (extended from 5s)
         
         setTimeout(() => {
           // UNLOCK SECTION 2
