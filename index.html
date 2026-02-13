@@ -846,40 +846,45 @@
               <div class="open-text">Buksan mo :)</div>
             </div>
             
-            <!-- Open Envelope Content (The Love Letter) -->
-            <div class="envelope-open-content">
-              <div class="love-letter">
-                <div class="letter-greeting">Hi Domi,</div>
-                <div class="letter-body">
-                  <p>Tbh, ilang beses na kitang nakausap sa isip ko</p>
-                  <p>kaso diko matuloy sa totoong buhay HAHAHA.</p>
-                  <p>Ang hirap pala mag-first move pag sanay kang</p>
-                  <p>nasa shell ka lang. 😅</p>
-                  <br>
-                  <p>But today, sinabi ko sa sarili ko:</p>
-                  <p>"Sige na, gawin mo na 'to para sa kanya."</p>
-                  <br>
-                  <p>So ayun... I use my coding skills to build you this website</p>
-                  <p>Hindi para ma-pressure ka, kundi para lang</p>
-                  <p>masabi ko na kahit papano — may nag-aadmire</p>
-                  <p>sa'yo from afar. Yung tipong kahit di mo alam,</p>
-                  <p>someone out there thinks you're worth</p>
-                  <p>creating something for.</p>
-                  <br>
-                  <p>Kung taken ka, busy, or ayaw mo lang —</p>
-                  <p>okay lang, no hard feelings.</p>
-                  <p>Pero kung sakali man na...</p>
-                  <p>...well, malay natin diba? 😉</p>
-                  <br>
-                  <p>Good luck sa Exam at PASUC nyo! #1 Fan</p>
-                  <p>Kaya mo yan, Domi. 🌸</p>
-                </div>
-                <div class="letter-signature">
-                  — <br>
-                  <span>Juben Azley</span>
-                </div>
-              </div>
-            </div>
+<!-- Open Envelope Content (The Love Letter) -->
+<div class="envelope-open-content">
+  <div class="love-letter">
+    <div class="letter-date">My message for you :)</div>
+    <div class="letter-greeting">Hi Domi,</div>
+    <div class="letter-body">
+      <p>Tbh, ilang beses na kitang nakausap sa isip ko</p>
+      <p>kaso diko matuloy sa totoong buhay HAHAHA.</p>
+      <p>Ang hirap pala mag-first move pag sanay kang</p>
+      <p>nasa shell ka lang. 😅</p>
+      <br>
+      <p>Truth is, nahihiya talaga ako mag chat —</p>
+      <p>thinking I might be ignored huhuhu 😭</p>
+      <p>Like the last time, 'cause IDK what to say after :(</p>
+      <p>Kasi hindi ko talaga alam paano mag-initiate.</p>
+      <p>On Past days, naisip ko about making websites for valentines..</p>
+      <br>
+      <p>So ayun... I tried making a website just for you :)</p>
+      <p>Hindi para ma-pressure ka, kundi para lang</p>
+      <p>masabi ko na kahit papano — may nag-aadmire</p>
+      <p>sa'yo from afar. Yung tipong kahit di mo alam,</p>
+      <p>someone out there thinks you're worth</p>
+      <p>creating something for.</p>
+      <br>
+      <p>I don't know if you're already taken na pala :) or...</p>
+      <p>..busy, or ayaw mo lang —</p>
+      <p>It's okay for me..I can wait :))</p>
+      <p>Pero kung sakali man na...</p>
+      <p>...well, malay natin diba? 😉</p>
+      <br>
+      <p>Good luck sa PASUC exam!</p>
+      <p>Kaya mo yan, Domi. 🌸</p>
+    </div>
+    <div class="letter-signature">
+      — <br>
+      <span>Juben Azley</span>
+    </div>
+  </div>
+</div>
           </div>
         </div>
         <div class="signature">❤️ ✦ 🌸 ✦ ❤️</div>
@@ -1106,14 +1111,12 @@
           }
         }, { passive: false });
         
-        // Prevent touchmove scrolling on mobile during lock
         body.addEventListener('touchmove', function(e) {
           if (body.classList.contains('lock-scroll')) {
             e.preventDefault();
           }
         }, { passive: false });
         
-        // Prevent keyboard navigation during lock
         window.addEventListener('keydown', function(e) {
           if (body.classList.contains('lock-scroll')) {
             const keys = ['ArrowUp', 'ArrowDown', 'PageUp', 'PageDown', 'Home', 'End', ' '];
