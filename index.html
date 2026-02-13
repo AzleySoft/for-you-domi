@@ -744,12 +744,16 @@
   <!-- LARGE MUSIC CONTROL BUTTON -->
   <div class="music-control" id="musicToggle">🔊</div>
   
-  <!-- ENLARGED VOLUME INDICATOR -->
+  <!-- ENLARGED VOLUME INDICATOR (fixed missing element) -->
+  <div class="volume-indicator" id="volumeIndicator">Volume: 50%</div>
   
-
+  <!-- Music instruction badge -->
+  <div class="music-instruction" id="musicInstruction" style="display: none;">
+    <span>🎵</span> I-click ang button para magpatugtog
+  </div>
   
-  <!-- Background Music - FORCED AUTOPLAY -->
-  <audio id="bgMusic" loop autoplay volume="0.5" preload="auto" playsinline>
+  <!-- Background Music - FORCED AUTOPLAY with preload -->
+  <audio id="bgMusic" loop preload="auto" playsinline>
     <source src="background-music.mp3" type="audio/mpeg">
     <!-- Fallback for browsers that don't support MP3 -->
     <source src="background-music.ogg" type="audio/ogg">
@@ -906,12 +910,18 @@
         const volumeIndicator = document.getElementById('volumeIndicator');
         const musicInstruction = document.getElementById('musicInstruction');
         
+        // Flag to prevent rapid multiple play/pause triggers
+        let isMusicActionInProgress = false;
+
         // Set initial volume to 50% (0.5)
         if (bgMusic) {
           bgMusic.volume = 0.5;
           
-          // AGGRESSIVE AUTOPLAY - Try multiple times immediately
+          // AGGRESSIVE AUTOPLAY - Try multiple times immediately but ensure only one attempt at a time
           function forcePlay() {
+            if (isMusicActionInProgress) return;
+            isMusicActionInProgress = true;
+            
             bgMusic.play().then(() => {
               console.log('Music started successfully');
               musicToggle.textContent = '🔊';
@@ -923,6 +933,7 @@
               setTimeout(() => {
                 volumeIndicator.style.opacity = '0';
               }, 2000);
+              isMusicActionInProgress = false;
             }).catch(error => {
               console.log('Autoplay prevented:', error);
               musicToggle.textContent = '🔇';
@@ -932,23 +943,34 @@
               if (musicInstruction) {
                 musicInstruction.style.display = 'flex';
               }
+              isMusicActionInProgress = false;
               
-              // Try again after a short delay
-              setTimeout(forcePlay, 500);
+              // Try again after a short delay, but only if not already playing
+              setTimeout(() => {
+                if (bgMusic.paused) {
+                  forcePlay();
+                }
+              }, 500);
             });
           }
           
           // Start playing immediately
           forcePlay();
           
-          // Also try to play on any user interaction as backup
+          // Also try to play on any user interaction as backup (but prevent double triggers)
           const playOnInteraction = function() {
+            if (!bgMusic.paused || isMusicActionInProgress) return;
+            isMusicActionInProgress = true;
             bgMusic.play().then(() => {
               // Hide instruction when music plays
               if (musicInstruction) {
                 musicInstruction.style.display = 'none';
               }
-            }).catch(e => console.log('Interaction play failed:', e));
+              isMusicActionInProgress = false;
+            }).catch(e => {
+              console.log('Interaction play failed:', e);
+              isMusicActionInProgress = false;
+            });
             document.removeEventListener('click', playOnInteraction);
             document.removeEventListener('touchstart', playOnInteraction);
           };
@@ -957,20 +979,30 @@
           document.addEventListener('touchstart', playOnInteraction);
         }
         
-        // Music toggle functionality
+        // Music toggle functionality - FIXED to prevent duplicate playback
         if (musicToggle && bgMusic) {
           musicToggle.addEventListener('click', function(e) {
             e.stopPropagation();
             
+            // Prevent rapid multiple clicks
+            if (isMusicActionInProgress) return;
+            isMusicActionInProgress = true;
+            
             if (bgMusic.paused) {
-              bgMusic.play();
-              bgMusic.volume = 0.5; // Ensure volume stays at 50%
-              musicToggle.textContent = '🔊';
-              volumeIndicator.textContent = 'Volume: 50%';
-              // Hide instruction when music plays
-              if (musicInstruction) {
-                musicInstruction.style.display = 'none';
-              }
+              bgMusic.play().then(() => {
+                // Ensure volume stays at 50% (though it should already be)
+                bgMusic.volume = 0.5;
+                musicToggle.textContent = '🔊';
+                volumeIndicator.textContent = 'Volume: 50%';
+                // Hide instruction when music plays
+                if (musicInstruction) {
+                  musicInstruction.style.display = 'none';
+                }
+                isMusicActionInProgress = false;
+              }).catch(err => {
+                console.warn('Play failed:', err);
+                isMusicActionInProgress = false;
+              });
             } else {
               bgMusic.pause();
               musicToggle.textContent = '🔇';
@@ -979,6 +1011,7 @@
               if (musicInstruction) {
                 musicInstruction.style.display = 'flex';
               }
+              isMusicActionInProgress = false;
             }
             
             // Show volume indicator briefly
