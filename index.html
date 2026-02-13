@@ -1,0 +1,1099 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Happy Valentine's Domi ❤️</title>
+  <!-- Smooth Scroll library (cdnjs) - guarantees smooth scrolling behavior -->
+  <script src="https://cdn.jsdelivr.net/gh/cferdinandi/smooth-scroll@15/dist/smooth-scroll.polyfills.min.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      position: relative;
+    }
+
+    /* Lock scroll class - applied to body when section 2 is locked */
+    body.lock-scroll {
+      overflow: hidden;
+      height: 100vh;
+    }
+
+    /* Unlock scroll class - applied when section 2 is available */
+    body.unlock-scroll {
+      overflow: auto;
+      height: auto;
+      min-height: 100vh;
+    }
+
+    /* Sparkles overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: 
+        radial-gradient(2px 2px at 15% 25%, #fff 50%, transparent 52%),
+        radial-gradient(2px 2px at 85% 45%, #fff8 50%, transparent 52%),
+        radial-gradient(2px 2px at 40% 85%, #fffa 50%, transparent 52%),
+        radial-gradient(2px 2px at 75% 15%, #fffa 50%, transparent 52%),
+        radial-gradient(1.5px 1.5px at 30% 55%, #fffa 50%, transparent 52%),
+        radial-gradient(1.5px 1.5px at 95% 70%, #fff9 50%, transparent 52%);
+      opacity: 0.5;
+      animation: sparkleFloat 10s ease-in-out infinite alternate;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    @keyframes sparkleFloat {
+      from { transform: translateY(0) translateX(0); }
+      to { transform: translateY(-15px) translateX(8px); }
+    }
+
+    /* LARGE MUSIC CONTROL BUTTON - Made much bigger and more noticeable */
+    .music-control {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: rgba(255, 122, 168, 0.95);
+      backdrop-filter: blur(10px);
+      border: 4px solid rgba(255, 255, 255, 0.9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      cursor: pointer;
+      z-index: 9999;
+      box-shadow: 0 10px 30px rgba(255, 122, 168, 0.8), 0 0 0 8px rgba(255, 255, 255, 0.3);
+      transition: all 0.3s ease;
+      animation: musicPulse 1.5s ease-in-out infinite;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+    }
+
+    .music-control:hover {
+      transform: scale(1.15);
+      background: rgba(255, 92, 148, 1);
+      box-shadow: 0 15px 40px #ff4d88, 0 0 0 12px rgba(255, 255, 255, 0.5);
+    }
+
+    @keyframes musicPulse {
+      0%, 100% { 
+        box-shadow: 0 10px 30px rgba(255, 122, 168, 0.8), 0 0 0 8px rgba(255, 255, 255, 0.3);
+        transform: scale(1);
+      }
+      50% { 
+        box-shadow: 0 20px 50px #ff7aa8, 0 0 0 15px rgba(255, 255, 255, 0.6);
+        transform: scale(1.1);
+      }
+    }
+
+    /* ENLARGED VOLUME INDICATOR - Much bigger and more prominent */
+    .volume-indicator {
+      position: fixed;
+      bottom: 120px;
+      right: 40px;
+      background: rgba(0, 0, 0, 0.85);
+      color: white;
+      padding: 15px 25px;
+      border-radius: 50px;
+      font-size: 1.4rem;
+      font-weight: bold;
+      z-index: 9999;
+      backdrop-filter: blur(10px);
+      border: 3px solid #ff7aa8;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+      white-space: nowrap;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      letter-spacing: 1px;
+    }
+
+    .volume-indicator::before {
+      content: '🎵';
+      margin-right: 10px;
+      font-size: 1.8rem;
+    }
+
+    .music-control:hover + .volume-indicator {
+      opacity: 1;
+    }
+
+    /* Music instruction badge - NEW: Shows when music is off */
+    .music-instruction {
+      position: fixed;
+      bottom: 120px;
+      right: 40px;
+      background: linear-gradient(135deg, #ff7aa8, #ff4d88);
+      color: white;
+      padding: 18px 30px;
+      border-radius: 60px;
+      font-size: 1.5rem;
+      font-weight: bold;
+      z-index: 9998;
+      border: 3px solid white;
+      box-shadow: 0 15px 30px rgba(0,0,0,0.4), 0 0 0 5px rgba(255,122,168,0.3);
+      animation: instructionBounce 2s ease-in-out infinite;
+      white-space: nowrap;
+      pointer-events: none;
+      text-shadow: 0 2px 5px rgba(0,0,0,0.3);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .music-instruction span {
+      font-size: 2.2rem;
+      margin-right: 5px;
+    }
+
+    @keyframes instructionBounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-15px); }
+    }
+
+    /* Mobile adjustments for music controls */
+    @media (max-width: 600px) {
+      .music-control {
+        width: 70px;
+        height: 70px;
+        font-size: 2.5rem;
+        bottom: 20px;
+        right: 20px;
+      }
+      
+      .volume-indicator {
+        bottom: 100px;
+        right: 25px;
+        padding: 12px 20px;
+        font-size: 1.2rem;
+      }
+      
+      .music-instruction {
+        bottom: 100px;
+        right: 25px;
+        padding: 15px 25px;
+        font-size: 1.2rem;
+        white-space: normal;
+        max-width: 280px;
+        text-align: center;
+      }
+    }
+
+    /* Main container - flex column to stack sections */
+    .container {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Section 1 - Full viewport height, centered content with background image */
+    .section-1 {
+      min-height: 100vh;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      position: relative;
+      background-image: url('background.png');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+    }
+
+    /* Fade overlay for section 1 background - makes figures visible */
+    .section-1::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.3);
+      backdrop-filter: brightness(0.8) blur(2px);
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    /* Gradient overlay for better visibility */
+    .section-1::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(145deg, rgba(10,15,34,0.4) 0%, rgba(31,43,92,0.3) 100%);
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .scene {
+      width: 100%;
+      max-width: 1200px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      position: relative;
+      z-index: 3;
+    }
+
+    .animation-area {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 10px 0;
+      filter: drop-shadow(0 0 25px rgba(255,255,255,0.5)) drop-shadow(0 0 15px rgba(255,122,168,0.5));
+      transition: filter 0.5s ease;
+    }
+
+    svg {
+      width: 100%;
+      height: auto;
+      max-width: 950px;
+      filter: drop-shadow(0 15px 30px rgba(0,0,0,0.6));
+    }
+
+    /* Drawing styles */
+    .draw {
+      fill: none;
+      stroke: rgba(255, 255, 255, 0.98);
+      stroke-width: 7;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-dasharray: 1400;
+      stroke-dashoffset: 1400;
+      animation: drawStroke 3s ease forwards;
+      filter: drop-shadow(0 0 5px rgba(0,0,0,0.5));
+    }
+    .flower-stem {
+      fill: none;
+      stroke: #ffb6c1;
+      stroke-width: 7;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-dasharray: 900;
+      stroke-dashoffset: 900;
+      animation: drawStroke 2.2s ease forwards;
+      filter: drop-shadow(0 0 5px rgba(0,0,0,0.5));
+    }
+    .flower-bud {
+      fill: none;
+      stroke: #ffb6c1;
+      stroke-width: 7;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-dasharray: 500;
+      stroke-dashoffset: 500;
+      animation: drawStroke 1.6s ease forwards;
+      filter: drop-shadow(0 0 5px rgba(0,0,0,0.5));
+    }
+    .guitar-body, .guitar-neck, .guitar-detail {
+      fill: none;
+      stroke: #f5deb3;
+      stroke-width: 7;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-dasharray: 900;
+      stroke-dashoffset: 900;
+      animation: drawStroke 2.4s ease forwards;
+      filter: drop-shadow(0 0 5px rgba(0,0,0,0.5));
+    }
+    
+    /* Heart with extra glow */
+    .draw[style*="#ff7aa8"] {
+      stroke: #ffb6c1;
+      stroke-width: 8;
+      filter: drop-shadow(0 0 8px #ff4d88) drop-shadow(0 0 5px rgba(0,0,0,0.5));
+    }
+
+    /* delays */
+    .d1 { animation-delay: 0.1s; }
+    .d2 { animation-delay: 0.15s; }
+    .d3 { animation-delay: 0.2s; }
+    .d4 { animation-delay: 0.25s; }
+    .d5 { animation-delay: 0.3s; }
+    .d6 { animation-delay: 0.35s; }
+    .d7 { animation-delay: 0.4s; }
+    .d8 { animation-delay: 0.45s; }
+    .d9 { animation-delay: 0.5s; }
+    .d10 { animation-delay: 0.55s; }
+    .d11 { animation-delay: 0.6s; }
+    .d12 { animation-delay: 0.65s; }
+    .f1 { animation-delay: 1.2s; }
+    .f2 { animation-delay: 1.35s; }
+    .f3 { animation-delay: 1.5s; }
+    .f4 { animation-delay: 1.65s; }
+    .f5 { animation-delay: 1.8s; }
+    .f6 { animation-delay: 1.95s; }
+    .g1 { animation-delay: 1.5s; }
+    .g2 { animation-delay: 1.65s; }
+    .g3 { animation-delay: 1.8s; }
+    .g4 { animation-delay: 1.95s; }
+    .g5 { animation-delay: 2.1s; }
+
+    @keyframes drawStroke {
+      to { stroke-dashoffset: 0; }
+    }
+
+    /* Section 2 - With abstract hearts and flowers animation */
+    .section-2 {
+      min-height: 100vh;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background: linear-gradient(145deg, #1f2b5c 0%, #0a0f22 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Abstract hearts and flowers animation container */
+    .abstract-shapes {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* Floating hearts */
+    .heart-shape {
+      position: absolute;
+      color: rgba(255, 122, 168, 0.15);
+      font-size: 3rem;
+      animation: float 8s ease-in-out infinite;
+      filter: drop-shadow(0 0 15px rgba(255, 122, 168, 0.3));
+      user-select: none;
+    }
+
+    .heart-shape:nth-child(1) { top: 10%; left: 5%; animation-delay: 0s; font-size: 4rem; }
+    .heart-shape:nth-child(2) { top: 70%; left: 15%; animation-delay: 1s; font-size: 3.5rem; }
+    .heart-shape:nth-child(3) { top: 30%; right: 10%; animation-delay: 2s; font-size: 5rem; }
+    .heart-shape:nth-child(4) { bottom: 15%; right: 20%; animation-delay: 3s; font-size: 3rem; }
+    .heart-shape:nth-child(5) { top: 50%; left: 20%; animation-delay: 4s; font-size: 4.5rem; }
+    .heart-shape:nth-child(6) { bottom: 30%; left: 30%; animation-delay: 5s; font-size: 3.8rem; }
+    .heart-shape:nth-child(7) { top: 15%; right: 25%; animation-delay: 6s; font-size: 4.2rem; }
+    .heart-shape:nth-child(8) { bottom: 10%; left: 60%; animation-delay: 7s; font-size: 3.2rem; }
+
+    /* Floating flowers */
+    .flower-shape {
+      position: absolute;
+      color: rgba(255, 200, 220, 0.15);
+      font-size: 2.8rem;
+      animation: floatAlt 10s ease-in-out infinite;
+      filter: drop-shadow(0 0 15px rgba(255, 200, 220, 0.3));
+      user-select: none;
+    }
+
+    .flower-shape:nth-child(9) { top: 20%; right: 15%; animation-delay: 0.5s; font-size: 3.5rem; }
+    .flower-shape:nth-child(10) { bottom: 25%; left: 40%; animation-delay: 1.5s; font-size: 4rem; }
+    .flower-shape:nth-child(11) { top: 60%; right: 30%; animation-delay: 2.5s; font-size: 3rem; }
+    .flower-shape:nth-child(12) { bottom: 40%; left: 15%; animation-delay: 3.5s; font-size: 4.2rem; }
+    .flower-shape:nth-child(13) { top: 75%; left: 70%; animation-delay: 4.5s; font-size: 3.8rem; }
+    .flower-shape:nth-child(14) { bottom: 60%; right: 40%; animation-delay: 5.5s; font-size: 3.3rem; }
+    .flower-shape:nth-child(15) { top: 40%; left: 80%; animation-delay: 6.5s; font-size: 4rem; }
+    .flower-shape:nth-child(16) { bottom: 70%; right: 60%; animation-delay: 7.5s; font-size: 3.6rem; }
+
+    /* Additional abstract circles */
+    .circle-shape {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255, 122, 168, 0.05);
+      width: 150px;
+      height: 150px;
+      animation: pulse 6s ease-in-out infinite;
+    }
+
+    .circle-shape:nth-child(17) { top: 10%; right: 10%; width: 200px; height: 200px; animation-delay: 0s; }
+    .circle-shape:nth-child(18) { bottom: 5%; left: 5%; width: 250px; height: 250px; animation-delay: 1s; }
+    .circle-shape:nth-child(19) { top: 40%; left: 20%; width: 180px; height: 180px; animation-delay: 2s; }
+    .circle-shape:nth-child(20) { bottom: 30%; right: 15%; width: 220px; height: 220px; animation-delay: 3s; }
+
+    /* Animation keyframes */
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(0deg) scale(1); }
+      25% { transform: translateY(-20px) rotate(5deg) scale(1.1); }
+      50% { transform: translateY(-30px) rotate(10deg) scale(1.2); }
+      75% { transform: translateY(-20px) rotate(5deg) scale(1.1); }
+    }
+
+    @keyframes floatAlt {
+      0%, 100% { transform: translateY(0) rotate(0deg) scale(1); }
+      33% { transform: translateY(-25px) rotate(-8deg) scale(1.15); }
+      66% { transform: translateY(-15px) rotate(8deg) scale(1.05); }
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 0.05; }
+      50% { transform: scale(1.3); opacity: 0.1; }
+    }
+
+    /* Lock overlay - covers section 2 while locked (no text) */
+    .section-2.locked::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(10, 15, 34, 0.85);
+      backdrop-filter: blur(4px);
+      z-index: 20;
+      pointer-events: none;
+    }
+
+    /* MESSAGE SECTION - Love Letter Style */
+    .message {
+      text-align: center;
+      padding: 20px;
+      max-width: 600px;
+      margin: 0 auto;
+      width: 100%;
+      position: relative;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Envelope Container */
+    .envelope-container {
+      position: relative;
+      width: 100%;
+      max-width: 500px;
+      margin: 0 auto;
+      cursor: pointer;
+      perspective: 1000px;
+    }
+
+    /* Envelope Style */
+    .envelope {
+      position: relative;
+      width: 100%;
+      background: linear-gradient(145deg, #ffb6c1, #ff8aaa);
+      border-radius: 20px 20px 15px 15px;
+      padding: 40px 30px;
+      box-shadow: 0 20px 30px rgba(0,0,0,0.3), 0 0 0 2px #fff3, 0 0 0 5px #ff7aa8;
+      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      transform-style: preserve-3d;
+      border: 1px solid rgba(255,255,255,0.5);
+    }
+
+    /* Envelope Flap */
+    .envelope::before {
+      content: '';
+      position: absolute;
+      top: -25px;
+      left: 0;
+      width: 100%;
+      height: 50px;
+      background: linear-gradient(145deg, #ff8aaa, #ff6b9d);
+      clip-path: polygon(0% 0%, 100% 0%, 85% 100%, 15% 100%);
+      border-radius: 15px 15px 0 0;
+      box-shadow: 0 -5px 10px rgba(0,0,0,0.2);
+      border: 1px solid rgba(255,255,255,0.5);
+      border-bottom: none;
+    }
+
+    /* Envelope Seal (Heart) */
+    .envelope-seal {
+      position: absolute;
+      top: -15px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 2.5rem;
+      z-index: 30;
+      filter: drop-shadow(0 5px 5px rgba(0,0,0,0.3));
+      animation: sealPulse 2s ease-in-out infinite;
+      transition: all 0.3s ease;
+    }
+
+    @keyframes sealPulse {
+      0%, 100% { transform: translateX(-50%) scale(1); }
+      50% { transform: translateX(-50%) scale(1.2); }
+    }
+
+    /* Closed Envelope Content (Preview) */
+    .envelope-closed-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      color: white;
+      text-shadow: 0 2px 5px rgba(0,0,0,0.3);
+      position: relative;
+      z-index: 5;
+    }
+
+    .envelope-closed-content .greeting-small {
+      font-size: 1.5rem;
+      letter-spacing: 2px;
+      background: rgba(255,255,255,0.2);
+      padding: 8px 20px;
+      border-radius: 30px;
+      backdrop-filter: blur(5px);
+      border: 1px solid rgba(255,255,255,0.3);
+    }
+
+    .envelope-closed-content .open-text {
+      font-size: 1.2rem;
+      opacity: 0.9;
+      margin-top: 10px;
+      animation: bounce 2s ease-in-out infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
+    }
+
+    /* Open Envelope Content (The Letter) */
+    .envelope-open-content {
+      display: none;
+      opacity: 0;
+      transition: all 0.5s ease;
+    }
+
+    /* When envelope is opened */
+    .envelope.opened .envelope-closed-content {
+      display: none;
+    }
+
+    .envelope.opened .envelope-open-content {
+      display: block;
+      opacity: 1;
+    }
+
+    .envelope.opened {
+      background: white;
+      padding: 40px 30px;
+      transform: scale(1.02);
+      box-shadow: 0 30px 40px rgba(255,122,168,0.4), 0 0 0 2px #ff7aa8, 0 0 0 5px #ffb6c1;
+    }
+
+    .envelope.opened::before {
+      background: linear-gradient(145deg, #ffb6c1, #ff8aaa);
+      opacity: 0.8;
+    }
+
+    /* Letter Style */
+    .love-letter {
+      background: #fff9f0;
+      background-image: linear-gradient(#f5e6d3 1px, transparent 1px);
+      background-size: 100% 30px;
+      padding: 40px 25px 25px;
+      border-radius: 15px;
+      box-shadow: inset 0 0 20px rgba(0,0,0,0.05), 0 5px 15px rgba(0,0,0,0.2);
+      border: 1px solid #ffd9e6;
+      position: relative;
+      font-family: 'Courier New', cursive, sans-serif;
+    }
+
+    .love-letter::before {
+      content: '❤️';
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 1.5rem;
+      opacity: 0.3;
+      transform: rotate(15deg);
+    }
+
+    .love-letter::after {
+      content: '🌸';
+      position: absolute;
+      bottom: 10px;
+      left: 15px;
+      font-size: 1.5rem;
+      opacity: 0.3;
+      transform: rotate(-10deg);
+    }
+
+    .letter-date {
+      text-align: right;
+      color: #ff7aa8;
+      font-style: italic;
+      margin-bottom: 20px;
+      font-size: 0.9rem;
+      border-bottom: 2px dashed #ffb6c1;
+      padding-bottom: 5px;
+    }
+
+    .letter-greeting {
+      font-size: 1.8rem;
+      color: #ff4d88;
+      margin-bottom: 15px;
+      font-weight: bold;
+      text-shadow: 2px 2px 0 #ffe6f0;
+    }
+
+    .letter-body {
+      font-size: 1.1rem;
+      line-height: 2;
+      color: #4a3729;
+      margin: 20px 0;
+      text-align: left;
+      padding: 0 10px;
+    }
+
+    .letter-signature {
+      text-align: right;
+      font-size: 1.2rem;
+      color: #ff7aa8;
+      margin-top: 30px;
+      font-style: italic;
+      border-top: 2px dashed #ffb6c1;
+      padding-top: 15px;
+    }
+
+    .letter-signature span {
+      font-size: 1.5rem;
+      display: block;
+      margin-top: 5px;
+    }
+
+    /* Picture placeholder (smaller in envelope) */
+    .picture-placeholder-small {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: url(image.png);
+      background-size: cover;
+      margin: 10px auto;
+      border: 2px solid rgba(255,255,255,0.5);
+      box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+    }
+
+    /* Interactive hint */
+    .click-hint {
+      margin-top: 15px;
+      color: rgba(255,255,255,0.8);
+      font-size: 0.9rem;
+      text-shadow: 0 2px 5px rgba(0,0,0,0.3);
+      animation: hintPulse 2s ease-in-out infinite;
+    }
+
+    @keyframes hintPulse {
+      0%, 100% { opacity: 0.7; }
+      50% { opacity: 1; }
+    }
+
+    .signature {
+      color: rgba(255, 255, 255, 0.3);
+      font-size: 0.8rem;
+      margin-top: 25px;
+      letter-spacing: 3px;
+    }
+
+    span.flower {
+      margin-top: 86px;
+    }
+
+    /* Mobile adjustments */
+    @media (max-width: 600px) {
+      .picture-placeholder {
+        width: 100px;
+        height: 100px;
+      }
+      .section-1 {
+        background-attachment: scroll;
+      }
+      .heart-shape { font-size: 2.5rem; }
+      .flower-shape { font-size: 2.2rem; }
+      .circle-shape { width: 100px; height: 100px; }
+      
+      .envelope {
+        padding: 30px 20px;
+      }
+      
+      .letter-body {
+        font-size: 1rem;
+        line-height: 1.8;
+      }
+      
+      .letter-greeting {
+        font-size: 1.5rem;
+      }
+    }
+
+    /* Optional: fallback background if image doesn't load */
+    .section-1 {
+      background-color: #1a1f35;
+    }
+  </style>
+</head>
+<body class="lock-scroll"> <!-- Start with scroll locked -->
+  <!-- LARGE MUSIC CONTROL BUTTON -->
+  <div class="music-control" id="musicToggle">🔊</div>
+  
+  <!-- ENLARGED VOLUME INDICATOR -->
+  
+
+  
+  <!-- Background Music - FORCED AUTOPLAY -->
+  <audio id="bgMusic" loop autoplay volume="0.5" preload="auto" playsinline>
+    <source src="background-music.mp3" type="audio/mpeg">
+    <!-- Fallback for browsers that don't support MP3 -->
+    <source src="background-music.ogg" type="audio/ogg">
+    Your browser does not support the audio element.
+  </audio>
+
+  <div class="container">
+    <!-- Section 1 - Drawing animation area with background image -->
+    <div class="section-1" id="section1">
+      <div class="scene">
+        <div class="animation-area" id="drawingFocus">
+          <svg viewBox="0 0 1000 600" preserveAspectRatio="xMidYMid meet">
+            <!-- Stickman left with flower -->
+            <circle class="draw d1" cx="250" cy="130" r="48"/>
+            <path class="draw d2" d="M250 178 L250 330"/>
+            <path class="draw d3" d="M250 330 L180 440"/>
+            <path class="draw d4" d="M250 330 L320 440"/>
+            <path class="draw d5" d="M250 210 L180 270"/>
+            <path class="draw d6" d="M250 210 L360 260"/>
+            <!-- Flower stems -->
+            <path class="flower-stem f1" d="M360 260 C 410 280, 460 295, 510 295"/>
+            <path class="flower-stem f2" d="M360 260 C 410 240, 460 235, 510 235"/>
+            <path class="flower-stem f3" d="M360 260 C 410 215, 460 205, 510 205"/>
+            <!-- Flower buds -->
+            <path class="flower-bud f4" d="M510 295 L535 315 L510 335 L485 315 Z"/>
+            <path class="flower-bud f5" d="M510 235 L535 255 L510 275 L485 255 Z"/>
+            <path class="flower-bud f6" d="M510 205 L535 225 L510 245 L485 225 Z"/>
+            <path class="draw d7" d="M410 245 C 425 230, 455 240, 440 260 C 425 278, 395 260, 410 245 Z"/>
+
+            <!-- Stickwoman right with guitar -->
+            <circle class="draw d8" cx="700" cy="130" r="46"/>
+            <path class="draw d9" d="M700 176 L700 340"/>
+            <path class="draw d10" d="M700 340 L660 450 L700 435 L740 450 L700 340"/>
+            <path class="draw d11" d="M700 225 L635 290"/>
+            <path class="draw d12" d="M700 225 L765 290"/>
+            <!-- Guitar -->
+            <ellipse class="guitar-body g1" cx="750" cy="330" rx="60" ry="80" transform="rotate(-10 750 330)"/>
+            <path class="guitar-neck g2" d="M685 270 L635 170 L610 150"/>
+            <path class="guitar-detail g3" d="M610 150 L602 130 L618 128 L628 142 Z"/>
+            <ellipse class="guitar-detail g4" cx="755" cy="320" rx="18" ry="26" transform="rotate(-10 755 320)"/>
+            <line x1="682" y1="271" x2="720" y2="340" class="guitar-detail g5" style="stroke:#cfa668; stroke-width:3.5"/>
+            <line x1="672" y1="256" x2="710" y2="325" class="guitar-detail g5" style="stroke:#cfa668; stroke-width:3.5"/>
+            <line x1="662" y1="241" x2="700" y2="310" class="guitar-detail g5" style="stroke:#cfa668; stroke-width:3.5"/>
+            <!-- Heart -->
+            <path class="draw" d="M450 200 Q480 160 510 200 Q480 240 450 200" style="stroke:#ff7aa8; stroke-width:6; fill:none; stroke-dasharray:400; stroke-dashoffset:400; animation:drawStroke 2s ease forwards 2.5s;"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 2 - Message section with interactive love letter envelope -->
+    <div class="section-2 locked" id="section2">
+      <!-- Abstract hearts and floating shapes -->
+      <div class="abstract-shapes">
+        <!-- Hearts -->
+        <div class="heart-shape">❤️</div>
+        <div class="heart-shape">❤️</div>
+        <div class="heart-shape">❤️</div>
+        <div class="heart-shape">❤️</div>
+        <div class="heart-shape">❤️</div>
+        <div class="heart-shape">❤️</div>
+        <div class="heart-shape">❤️</div>
+        <div class="heart-shape">❤️</div>
+        
+        <!-- Flowers -->
+        <div class="flower-shape">🌸</div>
+        <div class="flower-shape">🌸</div>
+        <div class="flower-shape">🌸</div>
+        <div class="flower-shape">🌸</div>
+        <div class="flower-shape">🌸</div>
+        <div class="flower-shape">🌸</div>
+        <div class="flower-shape">🌸</div>
+        <div class="flower-shape">🌸</div>
+        
+        <!-- Abstract circles -->
+        <div class="circle-shape"></div>
+        <div class="circle-shape"></div>
+        <div class="circle-shape"></div>
+        <div class="circle-shape"></div>
+      </div>
+      
+      <!-- Love Letter Envelope -->
+      <div class="message" id="valentineMessage">
+        <div class="envelope-container">
+          <div class="envelope" id="loveEnvelope">
+            <!-- Envelope Seal -->
+            <div class="envelope-seal">❤️</div>
+            
+            <!-- Closed Envelope Content (Preview) -->
+            <div class="envelope-closed-content">
+              <div class="picture-placeholder-small"></div>
+              <div class="greeting-small">For You</div>
+              <div class="open-text">Buksan mo :)</div>
+            </div>
+            
+            <!-- Open Envelope Content (The Love Letter) -->
+            <div class="envelope-open-content">
+              <div class="love-letter">
+                <div class="letter-greeting">Hi Domi,</div>
+                <div class="letter-body">
+                  <p>Tbh, ilang beses na kitang nakausap sa isip ko</p>
+                  <p>kaso diko matuloy sa totoong buhay HAHAHA.</p>
+                  <p>Ang hirap pala mag-first move pag sanay kang</p>
+                  <p>nasa shell ka lang. 😅</p>
+                  <br>
+                  <p>But today, sinabi ko sa sarili ko:</p>
+                  <p>"Sige na, gawin mo na 'to para sa kanya."</p>
+                  <br>
+                  <p>So ayun... I use my coding skills to build you this website</p>
+                  <p>Hindi para ma-pressure ka, kundi para lang</p>
+                  <p>masabi ko na kahit papano — may nag-aadmire</p>
+                  <p>sa'yo from afar. Yung tipong kahit di mo alam,</p>
+                  <p>someone out there thinks you're worth</p>
+                  <p>creating something for.</p>
+                  <br>
+                  <p>Kung taken ka, busy, or ayaw mo lang —</p>
+                  <p>okay lang, no hard feelings.</p>
+                  <p>Pero kung sakali man na...</p>
+                  <p>...well, malay natin diba? 😉</p>
+                  <br>
+                  <p>Good luck sa Exam at PASUC nyo! #1 Fan</p>
+                  <p>Kaya mo yan, Domi. 🌸</p>
+                </div>
+                <div class="letter-signature">
+                  — <br>
+                  <span>Juben Azley</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="signature">❤️ ✦ 🌸 ✦ ❤️</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      // Reset on every page load/refresh - force to section 1
+      window.addEventListener('beforeunload', function() {
+        // Reset scroll position to top
+        window.scrollTo(0, 0);
+      });
+      
+      window.addEventListener('load', function() {
+        const body = document.body;
+        const section1 = document.getElementById('section1');
+        const section2 = document.getElementById('section2');
+        const envelope = document.getElementById('loveEnvelope');
+        
+        // Music elements
+        const bgMusic = document.getElementById('bgMusic');
+        const musicToggle = document.getElementById('musicToggle');
+        const volumeIndicator = document.getElementById('volumeIndicator');
+        const musicInstruction = document.getElementById('musicInstruction');
+        
+        // Set initial volume to 50% (0.5)
+        if (bgMusic) {
+          bgMusic.volume = 0.5;
+          
+          // AGGRESSIVE AUTOPLAY - Try multiple times immediately
+          function forcePlay() {
+            bgMusic.play().then(() => {
+              console.log('Music started successfully');
+              musicToggle.textContent = '🔊';
+              volumeIndicator.textContent = 'Volume: 50%';
+              // Hide instruction when music plays
+              if (musicInstruction) {
+                musicInstruction.style.display = 'none';
+              }
+              setTimeout(() => {
+                volumeIndicator.style.opacity = '0';
+              }, 2000);
+            }).catch(error => {
+              console.log('Autoplay prevented:', error);
+              musicToggle.textContent = '🔇';
+              volumeIndicator.textContent = 'I-click ang button!';
+              volumeIndicator.style.opacity = '1';
+              // Show instruction when music is off
+              if (musicInstruction) {
+                musicInstruction.style.display = 'flex';
+              }
+              
+              // Try again after a short delay
+              setTimeout(forcePlay, 500);
+            });
+          }
+          
+          // Start playing immediately
+          forcePlay();
+          
+          // Also try to play on any user interaction as backup
+          const playOnInteraction = function() {
+            bgMusic.play().then(() => {
+              // Hide instruction when music plays
+              if (musicInstruction) {
+                musicInstruction.style.display = 'none';
+              }
+            }).catch(e => console.log('Interaction play failed:', e));
+            document.removeEventListener('click', playOnInteraction);
+            document.removeEventListener('touchstart', playOnInteraction);
+          };
+          
+          document.addEventListener('click', playOnInteraction);
+          document.addEventListener('touchstart', playOnInteraction);
+        }
+        
+        // Music toggle functionality
+        if (musicToggle && bgMusic) {
+          musicToggle.addEventListener('click', function(e) {
+            e.stopPropagation();
+            
+            if (bgMusic.paused) {
+              bgMusic.play();
+              bgMusic.volume = 0.5; // Ensure volume stays at 50%
+              musicToggle.textContent = '🔊';
+              volumeIndicator.textContent = 'Volume: 50%';
+              // Hide instruction when music plays
+              if (musicInstruction) {
+                musicInstruction.style.display = 'none';
+              }
+            } else {
+              bgMusic.pause();
+              musicToggle.textContent = '🔇';
+              volumeIndicator.textContent = 'Naka-pause';
+              // Show instruction when music is paused
+              if (musicInstruction) {
+                musicInstruction.style.display = 'flex';
+              }
+            }
+            
+            // Show volume indicator briefly
+            volumeIndicator.style.opacity = '1';
+            setTimeout(() => {
+              volumeIndicator.style.opacity = '0';
+            }, 1500);
+          });
+        }
+        
+        // CRITICAL: Force reset to section 1 on every load
+        // This ensures no matter what, we start at the top
+        window.scrollTo(0, 0);
+        
+        // Reset to locked state
+        body.classList.add('lock-scroll');
+        body.classList.remove('unlock-scroll');
+        section2.classList.add('locked');
+        
+        // Double ensure we're at section 1
+        if (section1) {
+          section1.scrollIntoView({ block: 'start', behavior: 'auto' });
+        }
+        
+        // Calculate when all animations finish (heart finishes at 2.5s + 2s = 4.5s)
+        // Using 5 seconds to be safe and allow full appreciation
+        const animationDuration = 5000; // 5 seconds
+        
+        setTimeout(() => {
+          // UNLOCK SECTION 2
+          // Remove lock class from body to enable scrolling
+          body.classList.remove('lock-scroll');
+          body.classList.add('unlock-scroll');
+          
+          // Remove lock styling from section 2
+          section2.classList.remove('locked');
+          
+          // Smooth scroll to section 2 to reveal it
+          if (section2 && window.SmoothScroll) {
+            var scroll = new SmoothScroll();
+            scroll.animateScroll(section2, null, {
+              speed: 1000,
+              easing: 'easeInOutCubic',
+              offset: 0,
+              updateURL: false
+            });
+            
+            // Add subtle highlight effect to envelope
+            if (envelope) {
+              envelope.style.transition = 'box-shadow 0.5s ease';
+              envelope.style.boxShadow = '0 0 30px 10px rgba(255,122,168,0.5)';
+              setTimeout(() => {
+                envelope.style.boxShadow = '0 20px 30px rgba(0,0,0,0.3), 0 0 0 2px #fff3, 0 0 0 5px #ff7aa8';
+              }, 1000);
+            }
+          } else {
+            // Fallback
+            if (section2) {
+              section2.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+          }
+        }, animationDuration);
+        
+        // Interactive envelope click
+        if (envelope) {
+          envelope.addEventListener('click', function(e) {
+            e.stopPropagation();
+            
+            // Toggle opened class
+            this.classList.toggle('opened');
+            
+            // Add a little sparkle effect
+            const sparkle = document.createElement('div');
+            sparkle.style.position = 'fixed';
+            sparkle.style.top = e.clientY + 'px';
+            sparkle.style.left = e.clientX + 'px';
+            sparkle.style.transform = 'translate(-50%, -50%)';
+            sparkle.style.color = '#ff7aa8';
+            sparkle.style.fontSize = '2rem';
+            sparkle.style.pointerEvents = 'none';
+            sparkle.style.zIndex = '9999';
+            sparkle.style.animation = 'bounce 0.5s ease-out forwards';
+            sparkle.textContent = '❤️';
+            document.body.appendChild(sparkle);
+            
+            setTimeout(() => sparkle.remove(), 500);
+          });
+        }
+        
+        // Prevent any scrolling during lock period
+        body.addEventListener('wheel', function(e) {
+          if (body.classList.contains('lock-scroll')) {
+            e.preventDefault();
+          }
+        }, { passive: false });
+        
+        // Prevent touchmove scrolling on mobile during lock
+        body.addEventListener('touchmove', function(e) {
+          if (body.classList.contains('lock-scroll')) {
+            e.preventDefault();
+          }
+        }, { passive: false });
+        
+        // Prevent keyboard navigation during lock
+        window.addEventListener('keydown', function(e) {
+          if (body.classList.contains('lock-scroll')) {
+            const keys = ['ArrowUp', 'ArrowDown', 'PageUp', 'PageDown', 'Home', 'End', ' '];
+            if (keys.includes(e.key)) {
+              e.preventDefault();
+            }
+          }
+        });
+        
+      });
+    })();
+  </script>
+</body>
+</html>
