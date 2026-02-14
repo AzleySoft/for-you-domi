@@ -32,7 +32,7 @@
       min-height: 100vh;
     }
 
-    /* Sparkles overlay */
+    /* Sparkles overlay - background animation */
     body::before {
       content: '';
       position: fixed;
@@ -228,23 +228,23 @@
     .floating-heart {
       position: absolute;
       color: rgba(255, 122, 168, 0.3);
-      font-size: 2rem;
+      font-size: clamp(1.5rem, 4vw, 3rem);
       filter: drop-shadow(0 0 15px rgba(255, 122, 168, 0.5));
       animation: floatHeart 8s ease-in-out infinite;
       opacity: 0;
       z-index: 2;
     }
 
-    .floating-heart:nth-child(1) { top: 15%; left: 10%; animation-delay: 1s; font-size: 2.5rem; }
-    .floating-heart:nth-child(2) { top: 70%; left: 20%; animation-delay: 3s; font-size: 2rem; }
-    .floating-heart:nth-child(3) { top: 30%; right: 15%; animation-delay: 2s; font-size: 3rem; }
-    .floating-heart:nth-child(4) { bottom: 20%; right: 25%; animation-delay: 4s; font-size: 2.2rem; }
-    .floating-heart:nth-child(5) { top: 50%; left: 40%; animation-delay: 2.5s; font-size: 2.8rem; }
-    .floating-heart:nth-child(6) { bottom: 40%; left: 60%; animation-delay: 5s; font-size: 2.4rem; }
-    .floating-heart:nth-child(7) { top: 80%; right: 40%; animation-delay: 3.5s; font-size: 2.1rem; }
-    .floating-heart:nth-child(8) { top: 20%; right: 60%; animation-delay: 4.5s; font-size: 2.6rem; }
-    .floating-heart:nth-child(9) { bottom: 60%; left: 80%; animation-delay: 1.5s; font-size: 2.3rem; }
-    .floating-heart:nth-child(10) { top: 45%; right: 70%; animation-delay: 5.5s; font-size: 2.7rem; }
+    .floating-heart:nth-child(1) { top: 15%; left: 10%; animation-delay: 1s; }
+    .floating-heart:nth-child(2) { top: 70%; left: 20%; animation-delay: 3s; }
+    .floating-heart:nth-child(3) { top: 30%; right: 15%; animation-delay: 2s; }
+    .floating-heart:nth-child(4) { bottom: 20%; right: 25%; animation-delay: 4s; }
+    .floating-heart:nth-child(5) { top: 50%; left: 40%; animation-delay: 2.5s; }
+    .floating-heart:nth-child(6) { bottom: 40%; left: 60%; animation-delay: 5s; }
+    .floating-heart:nth-child(7) { top: 80%; right: 40%; animation-delay: 3.5s; }
+    .floating-heart:nth-child(8) { top: 20%; right: 60%; animation-delay: 4.5s; }
+    .floating-heart:nth-child(9) { bottom: 60%; left: 80%; animation-delay: 1.5s; }
+    .floating-heart:nth-child(10) { top: 45%; right: 70%; animation-delay: 5.5s; }
 
     @keyframes floatHeart {
       0% { transform: translateY(100vh) rotate(0deg) scale(0.5); opacity: 0; }
@@ -257,8 +257,8 @@
     /* Sparkle particles */
     .sparkle-particle {
       position: absolute;
-      width: 4px;
-      height: 4px;
+      width: clamp(2px, 0.5vw, 4px);
+      height: clamp(2px, 0.5vw, 4px);
       background: white;
       border-radius: 50%;
       filter: blur(1px);
@@ -285,7 +285,7 @@
       75% { transform: scale(0.8); opacity: 0.2; }
     }
 
-    /* Fade overlay for section 1 background - REMOVED THE BLACK FADE EFFECT */
+    /* Fade overlay for section 1 background */
     .section-1::before {
       content: '';
       position: absolute;
@@ -293,13 +293,13 @@
       left: 0;
       right: 0;
       bottom: 0;
-      background: rgba(0, 0, 0, 0.3); /* Kept only the light overlay for visibility */
+      background: rgba(0, 0, 0, 0.3);
       backdrop-filter: brightness(0.8) blur(2px);
       z-index: 3;
       pointer-events: none;
     }
 
-    /* Gradient overlay - REMOVED THE BLACK FADE EFFECT */
+    /* Gradient overlay */
     .section-1::after {
       content: '';
       position: absolute;
@@ -307,7 +307,7 @@
       left: 0;
       right: 0;
       bottom: 0;
-      background: linear-gradient(145deg, rgba(10,15,34,0.2) 0%, rgba(31,43,92,0.1) 100%); /* Reduced opacity */
+      background: linear-gradient(145deg, rgba(10,15,34,0.4) 0%, rgba(31,43,92,0.3) 100%);
       z-index: 4;
       pointer-events: none;
     }
@@ -385,10 +385,17 @@
       filter: drop-shadow(0 0 5px rgba(0,0,0,0.5));
     }
     
-    /* Happy Valentine's Day Text */
+    /* RESPONSIVE VALENTINE'S TEXT */
+    .valentine-text-container {
+      position: relative;
+      width: 100%;
+      text-align: center;
+      margin-top: 20px;
+    }
+
     .valentine-text {
-      font-family: 'Brush Script MT', cursive, sans-serif;
-      font-size: 48px;
+      font-family: 'Brush Script MT', cursive, 'Segoe Script', 'Lucida Handwriting', cursive;
+      font-size: clamp(28px, 6vw, 54px);
       font-weight: bold;
       fill: #ff7aa8;
       stroke: white;
@@ -397,11 +404,13 @@
       filter: drop-shadow(0 0 10px #ff4d88) drop-shadow(0 0 20px rgba(255,255,255,0.8));
       opacity: 0;
       animation: fadeInText 2s ease forwards 4s;
+      dominant-baseline: middle;
+      text-anchor: middle;
     }
 
     .valentine-subtext {
-      font-family: 'Courier New', monospace;
-      font-size: 24px;
+      font-family: 'Courier New', monospace, 'Segoe UI';
+      font-size: clamp(14px, 3vw, 26px);
       fill: #fff0f5;
       stroke: #ff7aa8;
       stroke-width: 1;
@@ -409,6 +418,38 @@
       filter: drop-shadow(0 0 8px rgba(255,255,255,0.5));
       opacity: 0;
       animation: fadeInText 2s ease forwards 6s;
+      dominant-baseline: middle;
+      text-anchor: middle;
+    }
+
+    /* Mobile-specific text adjustments */
+    @media (max-width: 768px) {
+      .valentine-text {
+        stroke-width: 1.5;
+      }
+      
+      .valentine-subtext {
+        stroke-width: 0.8;
+      }
+      
+      /* Adjust text position for mobile */
+      svg text.valentine-text {
+        transform: translateY(-10px);
+      }
+      
+      svg text.valentine-subtext {
+        transform: translateY(10px);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .valentine-text {
+        font-size: 24px;
+      }
+      
+      .valentine-subtext {
+        font-size: 12px;
+      }
     }
 
     @keyframes fadeInText {
@@ -534,52 +575,52 @@
     .heart-shape {
       position: absolute;
       color: rgba(255, 122, 168, 0.15);
-      font-size: 3rem;
+      font-size: clamp(2rem, 5vw, 4rem);
       animation: float 8s ease-in-out infinite;
       filter: drop-shadow(0 0 15px rgba(255, 122, 168, 0.3));
       user-select: none;
     }
 
-    .heart-shape:nth-child(1) { top: 10%; left: 5%; animation-delay: 0s; font-size: 4rem; }
-    .heart-shape:nth-child(2) { top: 70%; left: 15%; animation-delay: 1s; font-size: 3.5rem; }
-    .heart-shape:nth-child(3) { top: 30%; right: 10%; animation-delay: 2s; font-size: 5rem; }
-    .heart-shape:nth-child(4) { bottom: 15%; right: 20%; animation-delay: 3s; font-size: 3rem; }
-    .heart-shape:nth-child(5) { top: 50%; left: 20%; animation-delay: 4s; font-size: 4.5rem; }
-    .heart-shape:nth-child(6) { bottom: 30%; left: 30%; animation-delay: 5s; font-size: 3.8rem; }
-    .heart-shape:nth-child(7) { top: 15%; right: 25%; animation-delay: 6s; font-size: 4.2rem; }
-    .heart-shape:nth-child(8) { bottom: 10%; left: 60%; animation-delay: 7s; font-size: 3.2rem; }
+    .heart-shape:nth-child(1) { top: 10%; left: 5%; animation-delay: 0s; }
+    .heart-shape:nth-child(2) { top: 70%; left: 15%; animation-delay: 1s; }
+    .heart-shape:nth-child(3) { top: 30%; right: 10%; animation-delay: 2s; }
+    .heart-shape:nth-child(4) { bottom: 15%; right: 20%; animation-delay: 3s; }
+    .heart-shape:nth-child(5) { top: 50%; left: 20%; animation-delay: 4s; }
+    .heart-shape:nth-child(6) { bottom: 30%; left: 30%; animation-delay: 5s; }
+    .heart-shape:nth-child(7) { top: 15%; right: 25%; animation-delay: 6s; }
+    .heart-shape:nth-child(8) { bottom: 10%; left: 60%; animation-delay: 7s; }
 
     .flower-shape {
       position: absolute;
       color: rgba(255, 200, 220, 0.15);
-      font-size: 2.8rem;
+      font-size: clamp(1.8rem, 4.5vw, 3.2rem);
       animation: floatAlt 10s ease-in-out infinite;
       filter: drop-shadow(0 0 15px rgba(255, 200, 220, 0.3));
       user-select: none;
     }
 
-    .flower-shape:nth-child(9) { top: 20%; right: 15%; animation-delay: 0.5s; font-size: 3.5rem; }
-    .flower-shape:nth-child(10) { bottom: 25%; left: 40%; animation-delay: 1.5s; font-size: 4rem; }
-    .flower-shape:nth-child(11) { top: 60%; right: 30%; animation-delay: 2.5s; font-size: 3rem; }
-    .flower-shape:nth-child(12) { bottom: 40%; left: 15%; animation-delay: 3.5s; font-size: 4.2rem; }
-    .flower-shape:nth-child(13) { top: 75%; left: 70%; animation-delay: 4.5s; font-size: 3.8rem; }
-    .flower-shape:nth-child(14) { bottom: 60%; right: 40%; animation-delay: 5.5s; font-size: 3.3rem; }
-    .flower-shape:nth-child(15) { top: 40%; left: 80%; animation-delay: 6.5s; font-size: 4rem; }
-    .flower-shape:nth-child(16) { bottom: 70%; right: 60%; animation-delay: 7.5s; font-size: 3.6rem; }
+    .flower-shape:nth-child(9) { top: 20%; right: 15%; animation-delay: 0.5s; }
+    .flower-shape:nth-child(10) { bottom: 25%; left: 40%; animation-delay: 1.5s; }
+    .flower-shape:nth-child(11) { top: 60%; right: 30%; animation-delay: 2.5s; }
+    .flower-shape:nth-child(12) { bottom: 40%; left: 15%; animation-delay: 3.5s; }
+    .flower-shape:nth-child(13) { top: 75%; left: 70%; animation-delay: 4.5s; }
+    .flower-shape:nth-child(14) { bottom: 60%; right: 40%; animation-delay: 5.5s; }
+    .flower-shape:nth-child(15) { top: 40%; left: 80%; animation-delay: 6.5s; }
+    .flower-shape:nth-child(16) { bottom: 70%; right: 60%; animation-delay: 7.5s; }
 
     .circle-shape {
       position: absolute;
       border-radius: 50%;
       background: rgba(255, 122, 168, 0.05);
-      width: 150px;
-      height: 150px;
+      width: clamp(80px, 15vw, 200px);
+      height: clamp(80px, 15vw, 200px);
       animation: pulse 6s ease-in-out infinite;
     }
 
-    .circle-shape:nth-child(17) { top: 10%; right: 10%; width: 200px; height: 200px; animation-delay: 0s; }
-    .circle-shape:nth-child(18) { bottom: 5%; left: 5%; width: 250px; height: 250px; animation-delay: 1s; }
-    .circle-shape:nth-child(19) { top: 40%; left: 20%; width: 180px; height: 180px; animation-delay: 2s; }
-    .circle-shape:nth-child(20) { bottom: 30%; right: 15%; width: 220px; height: 220px; animation-delay: 3s; }
+    .circle-shape:nth-child(17) { top: 10%; right: 10%; animation-delay: 0s; }
+    .circle-shape:nth-child(18) { bottom: 5%; left: 5%; animation-delay: 1s; }
+    .circle-shape:nth-child(19) { top: 40%; left: 20%; animation-delay: 2s; }
+    .circle-shape:nth-child(20) { bottom: 30%; right: 15%; animation-delay: 3s; }
 
     @keyframes float {
       0%, 100% { transform: translateY(0) rotate(0deg) scale(1); }
@@ -632,7 +673,7 @@
     .envelope-container {
       position: relative;
       width: 100%;
-      max-width: 500px;
+      max-width: min(500px, 90vw);
       margin: 0 auto;
       cursor: pointer;
       perspective: 1000px;
@@ -644,7 +685,7 @@
       width: 100%;
       background: linear-gradient(145deg, #ffb6c1, #ff8aaa);
       border-radius: 20px 20px 15px 15px;
-      padding: 40px 30px;
+      padding: clamp(20px, 5vw, 40px) clamp(15px, 4vw, 30px);
       box-shadow: 0 20px 30px rgba(0,0,0,0.3), 0 0 0 2px #fff3, 0 0 0 5px #ff7aa8;
       transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
       transform-style: preserve-3d;
@@ -673,7 +714,7 @@
       top: -15px;
       left: 50%;
       transform: translateX(-50%);
-      font-size: 2.5rem;
+      font-size: clamp(1.8rem, 5vw, 2.5rem);
       z-index: 30;
       filter: drop-shadow(0 5px 5px rgba(0,0,0,0.3));
       animation: sealPulse 2s ease-in-out infinite;
@@ -698,7 +739,7 @@
     }
 
     .envelope-closed-content .greeting-small {
-      font-size: 1.5rem;
+      font-size: clamp(1.2rem, 4vw, 1.5rem);
       letter-spacing: 2px;
       background: rgba(255,255,255,0.2);
       padding: 8px 20px;
@@ -708,7 +749,7 @@
     }
 
     .envelope-closed-content .open-text {
-      font-size: 1.2rem;
+      font-size: clamp(1rem, 3vw, 1.2rem);
       opacity: 0.9;
       margin-top: 10px;
       animation: bounce 2s ease-in-out infinite;
@@ -737,7 +778,7 @@
 
     .envelope.opened {
       background: white;
-      padding: 40px 30px;
+      padding: clamp(25px, 6vw, 40px) clamp(15px, 4vw, 30px);
       transform: scale(1.02);
       box-shadow: 0 30px 40px rgba(255,122,168,0.4), 0 0 0 2px #ff7aa8, 0 0 0 5px #ffb6c1;
     }
@@ -751,8 +792,8 @@
     .love-letter {
       background: #fff9f0;
       background-image: linear-gradient(#f5e6d3 1px, transparent 1px);
-      background-size: 100% 30px;
-      padding: 40px 25px 25px;
+      background-size: 100% clamp(25px, 5vw, 30px);
+      padding: clamp(25px, 5vw, 40px) clamp(15px, 4vw, 25px) clamp(15px, 4vw, 25px);
       border-radius: 15px;
       box-shadow: inset 0 0 20px rgba(0,0,0,0.05), 0 5px 15px rgba(0,0,0,0.2);
       border: 1px solid #ffd9e6;
@@ -765,7 +806,7 @@
       position: absolute;
       top: 10px;
       right: 15px;
-      font-size: 1.5rem;
+      font-size: clamp(1.2rem, 3vw, 1.5rem);
       opacity: 0.3;
       transform: rotate(15deg);
     }
@@ -775,7 +816,7 @@
       position: absolute;
       bottom: 10px;
       left: 15px;
-      font-size: 1.5rem;
+      font-size: clamp(1.2rem, 3vw, 1.5rem);
       opacity: 0.3;
       transform: rotate(-10deg);
     }
@@ -785,13 +826,13 @@
       color: #ff7aa8;
       font-style: italic;
       margin-bottom: 20px;
-      font-size: 0.9rem;
+      font-size: clamp(0.8rem, 2.5vw, 0.9rem);
       border-bottom: 2px dashed #ffb6c1;
       padding-bottom: 5px;
     }
 
     .letter-greeting {
-      font-size: 1.8rem;
+      font-size: clamp(1.4rem, 5vw, 1.8rem);
       color: #ff4d88;
       margin-bottom: 15px;
       font-weight: bold;
@@ -799,17 +840,23 @@
     }
 
     .letter-body {
-      font-size: 1.1rem;
-      line-height: 2;
+      font-size: clamp(0.9rem, 3vw, 1.1rem);
+      line-height: 1.8;
       color: #4a3729;
       margin: 20px 0;
       text-align: left;
       padding: 0 10px;
     }
 
+    .letter-body p {
+      margin-bottom: 8px;
+      white-space: normal;
+      word-wrap: break-word;
+    }
+
     .letter-signature {
       text-align: right;
-      font-size: 1.2rem;
+      font-size: clamp(1rem, 3.5vw, 1.2rem);
       color: #ff7aa8;
       margin-top: 30px;
       font-style: italic;
@@ -818,14 +865,14 @@
     }
 
     .letter-signature span {
-      font-size: 1.5rem;
+      font-size: clamp(1.2rem, 4vw, 1.5rem);
       display: block;
       margin-top: 5px;
     }
 
     .picture-placeholder-small {
-      width: 60px;
-      height: 60px;
+      width: clamp(40px, 10vw, 60px);
+      height: clamp(40px, 10vw, 60px);
       border-radius: 50%;
       background: url(image.png);
       background-size: cover;
@@ -837,7 +884,7 @@
     .click-hint {
       margin-top: 15px;
       color: rgba(255,255,255,0.8);
-      font-size: 0.9rem;
+      font-size: clamp(0.8rem, 2.5vw, 0.9rem);
       text-shadow: 0 2px 5px rgba(0,0,0,0.3);
       animation: hintPulse 2s ease-in-out infinite;
     }
@@ -849,43 +896,34 @@
 
     .signature {
       color: rgba(255, 255, 255, 0.3);
-      font-size: 0.8rem;
+      font-size: clamp(0.7rem, 2vw, 0.8rem);
       margin-top: 25px;
       letter-spacing: 3px;
     }
 
-    /* Mobile adjustments */
-    @media (max-width: 600px) {
-      .picture-placeholder {
-        width: 100px;
-        height: 100px;
-      }
-      .section-1 {
-        background-attachment: scroll;
-      }
-      .heart-shape { font-size: 2.5rem; }
-      .flower-shape { font-size: 2.2rem; }
-      .circle-shape { width: 100px; height: 100px; }
-      
-      .envelope {
-        padding: 30px 20px;
-      }
-      
+    /* Ultra small devices */
+    @media (max-width: 360px) {
       .letter-body {
-        font-size: 1rem;
-        line-height: 1.8;
+        font-size: 0.8rem;
+        line-height: 1.6;
       }
       
       .letter-greeting {
+        font-size: 1.2rem;
+      }
+      
+      .envelope {
+        padding: 15px 10px;
+      }
+      
+      .envelope::before {
+        top: -20px;
+        height: 40px;
+      }
+      
+      .envelope-seal {
+        top: -12px;
         font-size: 1.5rem;
-      }
-      
-      .valentine-text {
-        font-size: 32px;
-      }
-      
-      .valentine-subtext {
-        font-size: 18px;
       }
     }
 
@@ -898,7 +936,8 @@
   <!-- Music Control -->
   <div class="music-control" id="musicToggle">🔊</div>
   <div class="volume-indicator" id="volumeIndicator">11/10</div>
-
+  <div class="music-instruction" id="musicInstruction" style="display: none;">
+    <span>🔊</span> Click button for music
   </div>
   
   <audio id="bgMusic" loop preload="auto" playsinline>
@@ -984,9 +1023,9 @@
               <path class="draw" d="M450 200 Q480 160 510 200 Q480 240 450 200" style="stroke:#ff7aa8; stroke-width:6; fill:none; stroke-dasharray:400; stroke-dashoffset:400;"/>
             </g>
             
-            <!-- Happy Valentine's Day Text -->
-            <text x="300" y="520" class="valentine-text">Happy Valentine's Day!</text>
-            <text x="380" y="570" class="valentine-subtext">with love, Juben ❤️</text>
+            <!-- RESPONSIVE Happy Valentine's Day Text -->
+            <text x="500" y="520" class="valentine-text" text-anchor="middle">Happy Valentine's Day!</text>
+            <text x="500" y="570" class="valentine-subtext" text-anchor="middle">with love, Juben ❤️</text>
           </svg>
         </div>
       </div>
@@ -1200,7 +1239,7 @@
           section1.scrollIntoView({ block: 'start', behavior: 'auto' });
         }
         
-        // Unlock after animations complete (including text)
+        // Unlock after animations complete
         setTimeout(() => {
           body.classList.remove('lock-scroll');
           body.classList.add('unlock-scroll');
